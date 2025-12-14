@@ -63,7 +63,7 @@ export default function ProfilePage() {
                 <h1 className="text-3xl font-bold text-primary mb-4">My Profile</h1>
                 <div className="text-center">
                   <div className="w-16 h-16 rounded-full mx-auto overflow-hidden border border-border">
-                    <img id="viewAvatarImg" src="../images/swklogo.png" alt="Avatar" className="w-full h-full object-cover rounded-full" />
+                    <img id="viewAvatarImg" src="/images/swklogo.png" alt="Avatar" className="w-full h-full object-cover rounded-full" />
                   </div>
                 </div>
               </div>
@@ -102,9 +102,9 @@ export default function ProfilePage() {
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="card md:col-span-1 text-center">
                   <div className="w-16 h-16 rounded-full mx-auto overflow-hidden border border-border">
-                    <img id="avatarImg" src="../images/swklogo.png" alt="Avatar" className="w-full h-full object-cover rounded-full" />
+                    <img id="avatarImg" src="/images/swklogo.png" alt="Avatar" className="w-full h-full object-cover rounded-full" />
                   </div>
-                  <form id="avatarForm" className="mt-4" action="../process-form.php" method="POST" encType="multipart/form-data">
+                  <form id="avatarForm" className="mt-4" action="/api/profile/avatar" method="POST" encType="multipart/form-data">
                     <input type="hidden" name="form_type" defaultValue="auth_upload_avatar" />
                     <input type="hidden" name="csrf_token" defaultValue="" />
                     <input type="file" name="avatar" accept="image/*" className="input-field" />
@@ -112,7 +112,7 @@ export default function ProfilePage() {
                   </form>
                 </div>
                 <div className="card md:col-span-2">
-                  <form id="profileForm" action="../process-form.php" method="POST" className="space-y-4">
+                  <form id="profileForm" action="/api/profile/update" method="POST" className="space-y-4">
                     <input type="hidden" name="form_type" defaultValue="auth_update_profile" />
                     <input type="hidden" name="csrf_token" defaultValue="" />
                     <div className="grid md:grid-cols-2 gap-4">
