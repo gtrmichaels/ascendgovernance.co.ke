@@ -1,26 +1,414 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary Colors */
+  --color-primary: #213B31;
+  --color-primary-50: #E9F5EE;
+  --color-primary-100: #D3EBDD;
+  --color-primary-200: #A8D7BB;
+  --color-primary-300: #7DC298;
+  --color-primary-400: #52AE76;
+  --color-primary-500: #213B31;
+  --color-primary-600: #256B42;
+  --color-primary-700: #1F5A38;
+  --color-primary-800: #19482D;
+  --color-primary-900: #123722;
+
+  /* Secondary Colors */
+  --color-secondary: #F8F9FA;
+  --color-secondary-50: #FFFFFF;
+  --color-secondary-100: #F8F9FA;
+  --color-secondary-200: #F1F3F4;
+  --color-secondary-300: #E9ECEF;
+  --color-secondary-400: #DEE2E6;
+  --color-secondary-500: #CED4DA;
+  --color-secondary-600: #ADB5BD;
+  --color-secondary-700: #868E96;
+  --color-secondary-800: #495057;
+  --color-secondary-900: #343A40;
+
+  /* Accent Colors */
+  --color-accent: #D4AF37;
+  --color-accent-50: #FEFCF0;
+  --color-accent-100: #FDF6D3;
+  --color-accent-200: #FBEAA6;
+  --color-accent-300: #F7DD79;
+  --color-accent-400: #F3D04C;
+  --color-accent-500: #D4AF37;
+  --color-accent-600: #B8962F;
+  --color-accent-700: #9C7D27;
+  --color-accent-800: #80641F;
+  --color-accent-900: #644B17;
+
+  /* Background Colors */
+  --color-background: #FFFFFF;
+  --color-surface: #F1F3F4;
+
+  /* Text Colors */
+  --color-text-primary: #2D3748;
+  --color-text-secondary: #718096;
+
+  /* Status Colors */
+  --color-success: #38A169;
+  --color-success-50: #F0FFF4;
+  --color-success-100: #C6F6D5;
+  --color-success-500: #38A169;
+  --color-success-600: #2F855A;
+  --color-success-700: #276749;
+
+  --color-warning: #D69E2E;
+  --color-warning-50: #FFFBEB;
+  --color-warning-100: #FEF5E7;
+  --color-warning-500: #D69E2E;
+  --color-warning-600: #B7791F;
+  --color-warning-700: #975A16;
+
+  --color-error: #E53E3E;
+  --color-error-50: #FED7D7;
+  --color-error-100: #FEB2B2;
+  --color-error-500: #E53E3E;
+  --color-error-600: #C53030;
+  --color-error-700: #9B2C2C;
+
+  /* Border Colors */
+  --color-border: #E2E8F0;
+  --color-border-light: #F7FAFC;
+  --color-border-dark: #CBD5E0;
+
+  /* Shadow Variables */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* Animation Variables */
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-base: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Base Styles */
+@layer base {
+  /* Prevent horizontal overflow */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  /* Ensure iframes are responsive */
+  iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--color-text-primary);
+    background-color: var(--color-background);
+    line-height: 1.6;
+  }
+
+  /* Respect user motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Component Styles */
+@layer components {
+  .btn-primary {
+    border-radius: 12px;
+    background-color: rgb(33 59 49);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    font-weight: 500;
+    color: rgb(255 255 255);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+
+  .btn-primary:hover {
+    background-color: rgb(37 107 66);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+
+  .btn-primary:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px rgb(33 59 49);
+  }
+
+  .btn-secondary {
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: rgb(226 232 240);
+    background-color: rgb(248 249 250);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    font-weight: 500;
+    color: rgb(45 55 72);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+
+  .btn-secondary:hover {
+    background-color: rgb(241 243 244);
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
+
+  .btn-secondary:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px rgb(33 59 49);
+  }
+
+  .btn-accent {
+    border-radius: 12px;
+    background-color: rgb(212 175 55);
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    font-weight: 500;
+    color: rgb(33 59 49);
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+
+  .btn-accent:hover {
+    background-color: rgb(184 150 47);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+
+  .btn-accent:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px rgb(212 175 55);
+  }
+
+  .card {
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: rgb(226 232 240);
+    background-color: rgb(255 255 255);
+    padding: 1.5rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+
+  .input-field {
+    width: 100%;
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: rgb(226 232 240);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+
+  .input-field:focus {
+    border-color: rgb(33 59 49);
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px rgb(33 59 49);
+  }
+
+  .text-heading {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .text-body {
+    font-family: 'Inter', sans-serif;
+    color: var(--color-text-primary);
+  }
+
+  .text-caption {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+  }
+
+  .text-data {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--color-text-primary);
+  }
+}
+
+/* Utility Classes */
+@layer utilities {
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .shadow-subtle {
+    box-shadow: var(--shadow-base);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-md);
+  }
+
+  .shadow-floating {
+    box-shadow: var(--shadow-lg);
+  }
+
+  .transition-smooth {
+    transition: all var(--duration-normal) var(--ease-out);
+  }
+
+  .transition-fast {
+    transition: all var(--duration-fast) var(--ease-out);
+  }
+}
+
+/* Custom Animations */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.3s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.2s ease-out;
+}
+
+/* Active navbar link underline */
+.nav-active {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2.5px;
+  text-decoration-color: #3F8157;
+  color: var(--color-primary, #213B31) !important;
+  transition: text-decoration-color 0.2s, color 0.2s;
+}
+
+/* Sticky header scroll styles */
+#navbar {
+  transition: background-color var(--duration-200, 200ms) var(--ease-out, cubic-bezier(0.4, 0, 0.2, 1)), box-shadow var(--duration-200, 200ms) var(--ease-out, cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+#navbar.scrolled {
+  background-color: rgba(255, 255, 255, 0.97);
+  -webkit-backdrop-filter: saturate(180%) blur(6px);
+  backdrop-filter: saturate(180%) blur(6px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Ensure contact form inputs don't overflow */
+  .input-field {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  /* Improve contact info layout on mobile */
+  .contact-info-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  /* Ensure map container is properly sized */
+  .map-container {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  /* Better spacing for mobile */
+  .mobile-spacing {
+    gap: 1rem;
+  }
 }
