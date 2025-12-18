@@ -12,7 +12,7 @@ export default function ResearchPage() {
       ]} />
 
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-primary to-primary-700 overflow-hidden">
+      <section className="relative py-20 bg-primary-700 overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -225,14 +225,9 @@ export default function ResearchPage() {
             {/* Right Sidebar - Additional Resources */}
             <div className="lg:col-span-1">
               <div className="sticky top-24 space-y-6" style={{height: 'max-content'}}>
-                {/* Schedule Consultation */}
-                <div className="card bg-primary text-white">
-                  <h3 className="text-lg font-semibold mb-2">Schedule a Consultation</h3>
-                  <p className="text-white/90 mb-4">Discuss your governance needs with our experts</p>
-                  <Link href="/contact" className="btn-accent w-full text-center block">Book Consultation</Link>
-                </div>
                 {/* Training Brochures */}
-                <div className="card">
+                <div className="relative card overflow-visible pt-8">
+                  <span className="absolute right-2 -translate-y-1/2 bg-accent text-primary text-[10px] font-semibold px-2 py-[2px] z-20 shadow-subtle" style={{top: 0}}>Coming Soon</span>
                   <h3 className="text-lg font-semibold text-primary mb-4">Training Brochures</h3>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between p-3 bg-surface rounded-lg">
@@ -276,7 +271,7 @@ export default function ResearchPage() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-16 bg-primary">
+      <section className="relative py-20 bg-primary-800">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
             Never Miss a Governance Update
@@ -288,7 +283,7 @@ export default function ResearchPage() {
             <input type="text" name="company_website" tabIndex={-1} autoComplete="off" style={{position: 'absolute', left: '-10000px'}} />
             <input type="hidden" name="form_type" defaultValue="newsletter" />
             <input type="hidden" name="csrf_token" defaultValue="" />
-            <input type="email" name="email" placeholder="Enter your email address" className="flex-1 px-4 py-3 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-accent" required />
+            <input type="email" name="email" placeholder="Enter your email address" className="flex-1 px-4 py-3 rounded-lg bg-white text-text-primary border-0 focus:outline-none focus:ring-2 focus:ring-accent shadow-sm" required />
             <button type="submit" className="btn-accent whitespace-nowrap">Subscribe</button>
           </form>
           <div id="newsletter-feedback" className="mt-4 text-sm text-white/90" />

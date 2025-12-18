@@ -50,8 +50,8 @@ module.exports = {
           900: "#644B17", // yellow-950
         },
         // Background and Surface
-        background: "#FFFFFF", // white
-        surface: "#F1F3F4", // gray-100
+        background: "#FAFCFB", // very light green tint
+        surface: "#E0E8EB", // darker gray-blue for contrast
         // Text Colors
         text: {
           primary: "#2D3748", // gray-700

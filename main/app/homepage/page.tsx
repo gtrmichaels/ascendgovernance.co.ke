@@ -14,7 +14,7 @@ export default function HomePage() {
         {/* Background Video/Image */}
         <div className="absolute inset-0 z-0">
           <img src="/images/nai-8.jpg" alt="Nairobi Skyline" className="w-full h-full object-cover" style={{objectPosition: 'center 30%'}} />
-          <div className="absolute inset-0 bg-primary/70" />
+          <div className="absolute inset-0 bg-gradient-to-b from-primary-400/85 via-primary-500/88 to-primary-400/85" />
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" className="overlay">
             <defs>
               {/* More visible gradients */}
@@ -51,7 +51,7 @@ export default function HomePage() {
         </div>
         {/* Hero Content */}
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-          <p className="text-accent text-lg font-medium mb-4 animate-fade-in">Elevating Leadership. Strengthening Governance.</p>
+          <p className="text-[#D4AF37] text-lg font-medium mb-6 animate-fade-in">Elevating Leadership. Strengthening Governance.</p>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 animate-slide-up">
             Excellence in Corporate Governance Consultancy
           </h1>
@@ -59,9 +59,9 @@ export default function HomePage() {
             Empowering boards and executives with strategic governance solutions, comprehensive training, and expert consultancy services for sustainable business success.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
-            <Link href="/services" className="btn-accent text-lg px-8 py-4">Explore Services</Link>
-            <Link href="/contact" className="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-8 py-4 rounded-lg font-medium hover:bg-white/20 transition-all duration-300">Schedule Consultation</Link>
-            <Link href="/signup" className="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-8 py-4 rounded-lg font-medium hover:bg-white/20 transition-all duration-300">Register as Consultant</Link>
+            <Link href="/services" className="btn-accent text-lg px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300">Explore Services</Link>
+            <Link href="/contact" className="bg-white/10 backdrop-blur-sm text-white border border-primary-400/50 px-8 py-4 rounded-lg font-medium hover:bg-primary-400/20 hover:border-primary-400 transition-all duration-300">Schedule Consultation</Link>
+            <Link href="/signup" className="bg-white/10 backdrop-blur-sm text-white border border-primary-400/50 px-8 py-4 rounded-lg font-medium hover:bg-primary-400/20 hover:border-primary-400 transition-all duration-300">Register as Consultant</Link>
           </div>
         </div>
       </section>
@@ -125,7 +125,7 @@ export default function HomePage() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 bg-primary/10">
+      <section id="services" className="py-20 bg-background">
         <div className="w-full mb-8" aria-hidden="true">
           <svg className="w-full" style={{height: '1px'}} viewBox="0 0 100 1" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <line x1={0} y1="0.5" x2={100} y2="0.5" stroke="#295D44" strokeWidth="0.5" vectorEffect="non-scaling-stroke" />
@@ -150,7 +150,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-semibold text-primary mb-3">Board Evaluations</h3>
               <p className="text-text-secondary mb-4">Comprehensive assessment of board effectiveness and governance practices.</p>
-              <Link href="/services" className="text-accent font-medium hover:text-accent-600 transition-colors duration-200">Learn More →</Link>
+              <Link href="/services" className="text-[#D4AF37] font-medium hover:text-[#B8962F] transition-colors duration-200">Learn More →</Link>
             </div>
             {/* Service Card 2 */}
             <div className="card group hover:shadow-floating transition-all duration-300">
@@ -161,7 +161,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-semibold text-primary mb-3">Board Trainings</h3>
               <p className="text-text-secondary mb-4">Specialized training programs for board members and directors.</p>
-              <Link href="/services" className="text-accent font-medium hover:text-accent-600 transition-colors duration-200">Learn More →</Link>
+              <Link href="/services" className="text-[#D4AF37] font-medium hover:text-[#B8962F] transition-colors duration-200">Learn More →</Link>
             </div>
             {/* Service Card 3 */}
             <div className="card group hover:shadow-floating transition-all duration-300">
@@ -172,7 +172,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-semibold text-primary mb-3">Secretarial Trainings</h3>
               <p className="text-text-secondary mb-4">Professional development for company secretaries and compliance officers.</p>
-              <Link href="/services" className="text-accent font-medium hover:text-accent-600 transition-colors duration-200">Learn More →</Link>
+              <Link href="/services" className="text-[#D4AF37] font-medium hover:text-[#B8962F] transition-colors duration-200">Learn More →</Link>
             </div>
             {/* Service Card 4 */}
             <div className="card group hover:shadow-floating transition-all duration-300">
@@ -183,7 +183,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-semibold text-primary mb-3">Corporate Governance Trainings</h3>
               <p className="text-text-secondary mb-4">Comprehensive governance training for all organizational levels.</p>
-              <Link href="/services" className="text-accent font-medium hover:text-accent-600 transition-colors duration-200">Learn More →</Link>
+              <Link href="/services" className="text-[#D4AF37] font-medium hover:text-[#B8962F] transition-colors duration-200">Learn More →</Link>
             </div>
             {/* Service Card 5 */}
             <div className="card group hover:shadow-floating transition-all duration-300">
@@ -194,7 +194,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-semibold text-primary mb-3">Governance Consultancy</h3>
               <p className="text-text-secondary mb-4">Strategic advisory services for governance framework development.</p>
-              <Link href="/services" className="text-accent font-medium hover:text-accent-600 transition-colors duration-200">Learn More →</Link>
+              <Link href="/services" className="text-[#D4AF37] font-medium hover:text-[#B8962F] transition-colors duration-200">Learn More →</Link>
             </div>
             {/* Service Card 6 */}
             <div className="card group hover:shadow-floating transition-all duration-300">
@@ -205,7 +205,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-semibold text-primary mb-3">Committee Trainings</h3>
               <p className="text-text-secondary mb-4">Specialized training for board committees and working groups.</p>
-              <Link href="/services" className="text-accent font-medium hover:text-accent-600 transition-colors duration-200">Learn More →</Link>
+              <Link href="/services" className="text-[#D4AF37] font-medium hover:text-[#B8962F] transition-colors duration-200">Learn More →</Link>
             </div>
             {/* Service Card 7 */}
             <div className="card group hover:shadow-floating transition-all duration-300">
@@ -216,7 +216,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-semibold text-primary mb-3">Board Recruitment</h3>
               <p className="text-text-secondary mb-4">Executive search and recruitment services for board positions.</p>
-              <Link href="/services" className="text-accent font-medium hover:text-accent-600 transition-colors duration-200">Learn More →</Link>
+              <Link href="/services" className="text-[#D4AF37] font-medium hover:text-[#B8962F] transition-colors duration-200">Learn More →</Link>
             </div>
             {/* Service Card 8 */}
             <div className="card group hover:shadow-floating transition-all duration-300">
@@ -227,7 +227,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-semibold text-primary mb-3">Board Induction</h3>
               <p className="text-text-secondary mb-4">Comprehensive onboarding programs for new board members.</p>
-              <Link href="/services" className="text-accent font-medium hover:text-accent-600 transition-colors duration-200">Learn More →</Link>
+              <Link href="/services" className="text-[#D4AF37] font-medium hover:text-[#B8962F] transition-colors duration-200">Learn More →</Link>
             </div>
           </div>
         </div>
@@ -248,7 +248,7 @@ export default function HomePage() {
             {/* Pillar 1 */}
             <div className="text-center group">
               <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors duration-300">
-                <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-8 h-8 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
@@ -258,7 +258,7 @@ export default function HomePage() {
             {/* Pillar 2 */}
             <div className="text-center group">
               <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors duration-300">
-                <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-8 h-8 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
@@ -268,7 +268,7 @@ export default function HomePage() {
             {/* Pillar 3 */}
             <div className="text-center group">
               <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors duration-300">
-                <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-8 h-8 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
@@ -278,7 +278,7 @@ export default function HomePage() {
             {/* Pillar 4 */}
             <div className="text-center group">
               <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-accent/20 transition-colors duration-300">
-                <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-8 h-8 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4" />
                 </svg>
               </div>
@@ -374,7 +374,7 @@ export default function HomePage() {
                 <h3 className="text-xl font-semibold text-primary mb-6">Get in Touch</h3>
                 <div className="space-y-4">
                   <div className="flex items-start space-x-3">
-                    <svg className="w-5 h-5 text-accent mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-[#D4AF37] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
@@ -384,7 +384,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <svg className="w-5 h-5 text-accent mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-[#D4AF37] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                     <div className="min-w-0 flex-1">
@@ -393,7 +393,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <svg className="w-5 h-5 text-accent mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-[#D4AF37] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     <div className="min-w-0 flex-1">
@@ -402,7 +402,7 @@ export default function HomePage() {
                     </div>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <svg className="w-5 h-5 text-accent mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-[#D4AF37] mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <div className="min-w-0 flex-1">
@@ -433,7 +433,7 @@ export default function HomePage() {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-16 bg-primary">
+      <section className="relative py-20 bg-primary-800">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
             Stay Updated on Governance Best Practices
@@ -445,7 +445,7 @@ export default function HomePage() {
             <input type="hidden" name="form_type" defaultValue="newsletter" />
             <input type="hidden" name="csrf_token" defaultValue="" />
             <input type="text" name="company_website" tabIndex={-1} autoComplete="off" style={{position: 'absolute', left: '-10000px'}} />
-            <input type="email" id="newsletter-email" name="email" placeholder="Enter your email address" className="flex-1 px-4 py-3 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-accent" required />
+            <input type="email" id="newsletter-email" name="email" placeholder="Enter your email address" className="flex-1 px-4 py-3 rounded-lg bg-white text-text-primary border-0 focus:outline-none focus:ring-2 focus:ring-accent shadow-sm" required />
             <button id="newsletter-submit" type="submit" className="btn-accent whitespace-nowrap">Subscribe</button>
           </form>
           <div id="newsletter-feedback" className="mt-4 text-sm text-white/90" />
@@ -459,12 +459,12 @@ export default function HomePage() {
         rel="noopener noreferrer" 
         aria-label="Chat on WhatsApp" 
         title="Chat on WhatsApp" 
-        className={`fixed z-50 rounded-full shadow-floating border hover:shadow-elevated transition-all duration-300 ease-in-out cursor-pointer flex items-center ${whatsappExpanded ? 'w-[240px] rounded-[28px] justify-start pr-4' : 'w-14 h-14 justify-center'} bg-white overflow-hidden`}
+        className={`fixed z-50 rounded-full shadow-floating border hover:shadow-elevated transition-all duration-300 ease-in-out cursor-pointer flex items-center ${whatsappExpanded ? 'w-[240px] rounded-[28px] justify-start pr-4 bg-white' : 'w-14 h-14 justify-center bg-background'} overflow-hidden`}
         style={{right: '20px', bottom: '20px', borderColor: 'rgba(37,211,102,.4)'}}
         onMouseEnter={() => setWhatsappExpanded(true)}
         onMouseLeave={() => setWhatsappExpanded(false)}
       >
-        <span className="whatsapp-icon flex-shrink-0" style={{width: '56px', height: '56px', background: '#ffffff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <span className="whatsapp-icon flex-shrink-0" style={{width: '56px', height: '56px', background: whatsappExpanded ? '#FFFFFF' : '#FAFCFB', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" style={{width: '24px', height: '24px', flexShrink: 0}}>
             <path fill="#25D366" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.221-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.148-.767-1.519-.94-2.206-.172-.706-.346-.573-.52-.646-.173-.075-.372-.112-.57-.112-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.077 4.487.709.306 1.263.489 1.694.636.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.443h-.016c-1.77 0-3.524-.48-5.055-1.38l-.36-.214-3.75.975 1-3.648-.235-.374c-.911-1.439-1.371-3.02-1.371-4.7 0-5.47 4.463-9.934 9.934-9.934 2.65 0 5.18 1.03 7.07 2.91 1.89 1.88 2.93 4.39 2.93 7.07 0 5.47-4.463 9.934-9.935 9.934m8.033-18.297C19.25 1.837 15.082-.5 10.5-.5 4.701-.5.5 3.701.5 8.5c0 2.15.547 4.236 1.58 6.06L.5 24.5l9.75-2.58c1.824 1.02 3.91 1.58 6.06 1.58 4.799 0 9.19-4.201 9.19-9.5 0-3.25-1.24-6.33-3.5-8.5" />
           </svg>

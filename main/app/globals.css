@@ -1,9 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #E7EFEA;
+  --color-primary-100: #CFDFD5;
+  --color-primary-200: #9FC0AB;
+  --color-primary-300: #6FA081;
+  --color-primary-400: #3F8157;
+  --color-primary-500: #213B31;
+  --color-primary-600: #1C3229;
+  --color-primary-700: #162921;
+  --color-primary-800: #112119;
+  --color-primary-900: #0B1610;
+  
+  --color-accent-50: #FEFCF0;
+  --color-accent-100: #FDF6D3;
+  --color-accent-200: #FBEAA6;
+  --color-accent-300: #F7DD79;
+  --color-accent-400: #F3D04C;
+  --color-accent-500: #D4AF37;
+  --color-accent-600: #B8962F;
+  --color-accent-700: #9C7D27;
+  --color-accent-800: #80641F;
+  --color-accent-900: #644B17;
+}
 
 :root {
   /* Primary Colors */
@@ -21,7 +43,7 @@
 
   /* Secondary Colors */
   --color-secondary: #F8F9FA;
-  --color-secondary-50: #FFFFFF;
+  --color-secondary-50: #FAFCFB;
   --color-secondary-100: #F8F9FA;
   --color-secondary-200: #F1F3F4;
   --color-secondary-300: #E9ECEF;
@@ -46,8 +68,8 @@
   --color-accent-900: #644B17;
 
   /* Background Colors */
-  --color-background: #FFFFFF;
-  --color-surface: #F1F3F4;
+  --color-background: #FAFCFB;
+  --color-surface: #E0E8EB;
 
   /* Text Colors */
   --color-text-primary: #2D3748;
@@ -219,7 +241,7 @@
     border-radius: 12px;
     border-width: 1px;
     border-color: rgb(226 232 240);
-    background-color: rgb(255 255 255);
+    background-color: rgb(250 252 251);
     padding: 1.5rem;
     transition-property: all;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -384,6 +406,12 @@
   -webkit-backdrop-filter: saturate(180%) blur(6px);
   backdrop-filter: saturate(180%) blur(6px);
   box-shadow: var(--shadow-md);
+}
+
+/* Footer fallback - ensure it renders with background */
+footer {
+  background-color: #112119 !important; /* primary-800 fallback */
+  color: white !important;
 }
 
 /* Mobile-specific improvements */

@@ -24,8 +24,19 @@ export default function ContactPage() {
       </section>
 
       {/* Hero Section */}
-      <section className="py-16 bg-primary">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+      <section className="relative py-20 bg-primary-700">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width={10} height={10} patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5" />
+              </pattern>
+            </defs>
+            <rect width={100} height={100} fill="url(#grid)" />
+          </svg>
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Contact &amp; Consultation Booking
           </h1>
@@ -335,7 +346,7 @@ export default function ContactPage() {
                   <input type="hidden" name="form_type" defaultValue="newsletter" />
                   <input type="hidden" name="csrf_token" defaultValue="" />
                   <input type="text" name="company_website" tabIndex={-1} autoComplete="off" style={{position: 'absolute', left: '-10000px'}} />
-                  <input type="email" name="email" placeholder="Enter your email" className="w-full px-4 py-3 rounded-lg border-0 text-text-primary focus:outline-none focus:ring-2 focus:ring-accent" required />
+                  <input type="email" name="email" placeholder="Enter your email" className="w-full px-4 py-3 rounded-lg bg-white text-text-primary border-0 focus:outline-none focus:ring-2 focus:ring-accent shadow-sm" required />
                   <button type="submit" className="btn-accent w-full">Subscribe</button>
                 </form>
               </div>
@@ -347,7 +358,7 @@ export default function ContactPage() {
       {/* Success Modal */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-lg p-8 max-w-md w-full text-center">
+          <div className="bg-background rounded-lg p-8 max-w-md w-full text-center">
             <div className="w-16 h-16 bg-success/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg className="w-8 h-8 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />

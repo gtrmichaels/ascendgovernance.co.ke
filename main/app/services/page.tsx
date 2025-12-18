@@ -1,9 +1,144 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect } from 'react';
 import Breadcrumb from '../components/Breadcrumb';
 
 export default function ServicesPage() {
+  useEffect(() => {
+    // Handle toggle details buttons
+    const toggleButtons = document.querySelectorAll('.toggle-details');
+    toggleButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        const serviceCard = (e.target as HTMLElement).closest('.service-card');
+        if (serviceCard) {
+          const detailsDiv = serviceCard.querySelector('.service-details');
+          const button = serviceCard.querySelector('.toggle-details') as HTMLElement;
+          
+          if (detailsDiv && button) {
+            const isHidden = detailsDiv.classList.contains('hidden');
+            if (isHidden) {
+              detailsDiv.classList.remove('hidden');
+              button.textContent = 'Hide Details';
+            } else {
+              detailsDiv.classList.add('hidden');
+              button.textContent = 'Show Details';
+            }
+          }
+        }
+      });
+    });
+
+    // Handle service filters
+    const filterInputs = document.querySelectorAll('.service-filter');
+    const serviceCards = document.querySelectorAll('.service-card');
+    const noResults = document.getElementById('no-results');
+    const servicesGrid = document.getElementById('services-grid');
+
+    const filterServices = () => {
+      const activeCategories = Array.from(filterInputs)
+        .filter((input: HTMLInputElement) => input.checked)
+        .map((input: HTMLInputElement) => input.dataset.category);
+
+      let visibleCount = 0;
+      serviceCards.forEach((card: HTMLElement) => {
+        const category = card.dataset.category;
+        if (activeCategories.length === 0 || activeCategories.includes(category)) {
+          card.style.display = '';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      if (noResults && servicesGrid) {
+        if (visibleCount === 0) {
+          noResults.classList.remove('hidden');
+          servicesGrid.style.display = 'none';
+        } else {
+          noResults.classList.add('hidden');
+          servicesGrid.style.display = '';
+        }
+      }
+    };
+
+    filterInputs.forEach(input => {
+      input.addEventListener('change', filterServices);
+    });
+
+    // Handle search
+    const searchInput = document.getElementById('service-search') as HTMLInputElement;
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+        serviceCards.forEach((card: HTMLElement) => {
+          const text = card.textContent?.toLowerCase() || '';
+          const isVisible = text.includes(searchTerm);
+          card.style.display = isVisible ? '' : 'none';
+        });
+      });
+    }
+
+    // Handle reset filters
+    const resetButton = document.getElementById('reset-filters');
+    if (resetButton) {
+      resetButton.addEventListener('click', () => {
+        filterInputs.forEach((input: HTMLInputElement) => {
+          input.checked = true;
+        });
+        if (searchInput) {
+          searchInput.value = '';
+        }
+        filterServices();
+        // Reset all service cards to visible
+        serviceCards.forEach((card: HTMLElement) => {
+          card.style.display = '';
+        });
+      });
+    }
+
+    // Handle FAQ dropdowns
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(question => {
+      question.addEventListener('click', (e) => {
+        const faqItem = (e.target as HTMLElement).closest('.faq-item');
+        if (faqItem) {
+          const answer = faqItem.querySelector('.faq-answer');
+          const svg = faqItem.querySelector('svg');
+          
+          if (answer && svg) {
+            const isHidden = answer.classList.contains('hidden');
+            if (isHidden) {
+              answer.classList.remove('hidden');
+              svg.style.transform = 'rotate(180deg)';
+            } else {
+              answer.classList.add('hidden');
+              svg.style.transform = 'rotate(0deg)';
+            }
+          }
+        }
+      });
+    });
+
+    return () => {
+      toggleButtons.forEach(button => {
+        button.removeEventListener('click', () => {});
+      });
+      filterInputs.forEach(input => {
+        input.removeEventListener('change', filterServices);
+      });
+      if (searchInput) {
+        searchInput.removeEventListener('input', () => {});
+      }
+      if (resetButton) {
+        resetButton.removeEventListener('click', () => {});
+      }
+      faqQuestions.forEach(question => {
+        question.removeEventListener('click', () => {});
+      });
+    };
+  }, []);
+
   return (
     <>
       <div className="h-16" />
@@ -12,7 +147,7 @@ export default function ServicesPage() {
         { label: 'Services', href: '/services' }
       ]} />
           {/* Hero Section */}
-          <section className="relative py-20 bg-gradient-to-br from-primary to-primary-700">
+          <section className="relative py-20 bg-primary-700">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
               <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -38,7 +173,7 @@ export default function ServicesPage() {
             </div>
           </section>
           {/* Main Content Area */}
-          <section className="py-16">
+          <section className="py-16 bg-background">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
               <div className="grid lg:grid-cols-4 gap-8 items-start">
                 {/* Left Sidebar - Filters */}
@@ -439,12 +574,6 @@ export default function ServicesPage() {
                 {/* Right Sidebar */}
                 <div className="lg:col-span-1 self-start">
                   <div className="sticky top-24 space-y-6">
-                    {/* Consultation Booking Widget */}
-                    <div className="card bg-primary text-white">
-                      <h3 className="text-lg font-semibold mb-4">Schedule a Consultation</h3>
-                      <p className="text-white/90 text-sm mb-4">Discuss your governance needs with our experts</p>
-                      <Link href="/contact" className="btn-accent w-full text-center block">Book Consultation</Link>
-                    </div>
                     {/* Downloadable Resources */}
                     <div className="relative card overflow-visible pt-8">
                       <span className="absolute right-2 -translate-y-1/2 bg-accent text-primary text-[10px] font-semibold px-2 py-[2px] z-20 shadow-subtle" style={{top: 0}}>Coming Soon</span>
@@ -505,7 +634,7 @@ export default function ServicesPage() {
             </div>
           </section>
           {/* FAQ Section */}
-          <section className="py-16 bg-surface">
+          <section className="py-16" style={{backgroundColor: '#E0E8EB'}}>
             <div className="max-w-4xl mx-auto px-6 lg:px-8">
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold text-primary mb-4">Frequently Asked Questions</h2>
@@ -557,6 +686,26 @@ export default function ServicesPage() {
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
+
+          {/* Newsletter Section */}
+          <section className="relative py-20 bg-primary-800">
+            <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                Stay Updated on Governance Best Practices
+              </h2>
+              <p className="text-white/90 mb-8 max-w-2xl mx-auto">
+                Subscribe to our newsletter for the latest insights, regulatory updates, and governance trends delivered to your inbox.
+              </p>
+              <form id="services-newsletter-form" className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" action="/api/newsletter" method="POST">
+                <input type="text" name="company_website" tabIndex={-1} autoComplete="off" style={{position: 'absolute', left: '-10000px'}} />
+                <input type="hidden" name="form_type" defaultValue="newsletter" />
+                <input type="hidden" name="csrf_token" defaultValue="" />
+                <input type="email" name="email" placeholder="Enter your email address" className="flex-1 px-4 py-3 rounded-lg bg-white text-text-primary border-0 focus:outline-none focus:ring-2 focus:ring-accent shadow-sm" required />
+                <button type="submit" className="btn-accent whitespace-nowrap">Subscribe</button>
+              </form>
+              <div id="newsletter-feedback" className="mt-4 text-sm text-white/90" />
             </div>
           </section>
     </>
