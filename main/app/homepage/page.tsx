@@ -125,12 +125,7 @@ export default function HomePage() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-20 bg-background">
-        <div className="w-full mb-8" aria-hidden="true">
-          <svg className="w-full" style={{height: '1px'}} viewBox="0 0 100 1" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1={0} y1="0.5" x2={100} y2="0.5" stroke="#295D44" strokeWidth="0.5" vectorEffect="non-scaling-stroke" />
-          </svg>
-        </div>
+      <section id="services" className="py-20" style={{backgroundColor: '#FAFCFB'}}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
@@ -234,7 +229,7 @@ export default function HomePage() {
       </section>
 
       {/* Value Pillars Section */}
-      <section className="py-20 bg-surface">
+      <section className="py-20" style={{backgroundColor: '#E8EDF1'}}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
@@ -290,7 +285,7 @@ export default function HomePage() {
       </section>
 
       {/* Partner Logos Section */}
-      <section className="py-16 bg-background">
+      <section className="py-16" style={{backgroundColor: '#FAFCFB'}}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-2xl font-semibold text-primary mb-4">Trusted by Leading Organizations</h2>
@@ -310,7 +305,7 @@ export default function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 bg-surface overflow-hidden">
+      <section id="contact" className="py-20 overflow-hidden" style={{backgroundColor: '#E8EDF1'}}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">

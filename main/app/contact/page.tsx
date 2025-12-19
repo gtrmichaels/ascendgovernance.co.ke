@@ -47,7 +47,7 @@ export default function ContactPage() {
       </section>
 
       {/* Main Content Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20" style={{backgroundColor: '#FAFCFB'}}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-12 gap-12">
             {/* Contact Form - Left Side (7 cols) */}
@@ -339,14 +339,14 @@ export default function ContactPage() {
               </div>
 
               {/* Newsletter Signup */}
-              <div className="card bg-primary text-white">
+              <div className="card bg-primary-800 text-white">
                 <h3 className="text-xl font-semibold mb-4">Stay Informed</h3>
                 <p className="text-white/90 mb-6">Subscribe to our governance insights newsletter for the latest regulatory updates and best practices.</p>
                 <form id="sidebar-newsletter-form" className="space-y-4" action="/api/newsletter" method="POST">
                   <input type="hidden" name="form_type" defaultValue="newsletter" />
                   <input type="hidden" name="csrf_token" defaultValue="" />
                   <input type="text" name="company_website" tabIndex={-1} autoComplete="off" style={{position: 'absolute', left: '-10000px'}} />
-                  <input type="email" name="email" placeholder="Enter your email" className="w-full px-4 py-3 rounded-lg bg-white text-text-primary border-0 focus:outline-none focus:ring-2 focus:ring-accent shadow-sm" required />
+                  <input type="email" name="email" placeholder="Enter your email address" className="w-full px-4 py-3 rounded-lg bg-white text-gray-900 border-0 focus:outline-none focus:ring-2 focus:ring-accent shadow-sm" style={{color: '#1a202c'}} required />
                   <button type="submit" className="btn-accent w-full">Subscribe</button>
                 </form>
               </div>

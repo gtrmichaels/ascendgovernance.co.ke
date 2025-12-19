@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useEffect } from 'react';
-import Breadcrumb from '../components/Breadcrumb';
 
 export default function ServicesPage() {
   useEffect(() => {
@@ -37,17 +36,17 @@ export default function ServicesPage() {
 
     const filterServices = () => {
       const activeCategories = Array.from(filterInputs)
-        .filter((input: HTMLInputElement) => input.checked)
-        .map((input: HTMLInputElement) => input.dataset.category);
+        .filter((input) => (input as HTMLInputElement).checked)
+        .map((input) => (input as HTMLInputElement).dataset.category);
 
       let visibleCount = 0;
-      serviceCards.forEach((card: HTMLElement) => {
-        const category = card.dataset.category;
+      serviceCards.forEach((card) => {
+        const category = (card as HTMLElement).dataset.category;
         if (activeCategories.length === 0 || activeCategories.includes(category)) {
-          card.style.display = '';
+          (card as HTMLElement).style.display = '';
           visibleCount++;
         } else {
-          card.style.display = 'none';
+          (card as HTMLElement).style.display = 'none';
         }
       });
 
@@ -71,10 +70,10 @@ export default function ServicesPage() {
     if (searchInput) {
       searchInput.addEventListener('input', (e) => {
         const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
-        serviceCards.forEach((card: HTMLElement) => {
-          const text = card.textContent?.toLowerCase() || '';
+        serviceCards.forEach((card) => {
+          const text = (card as HTMLElement).textContent?.toLowerCase() || '';
           const isVisible = text.includes(searchTerm);
-          card.style.display = isVisible ? '' : 'none';
+          (card as HTMLElement).style.display = isVisible ? '' : 'none';
         });
       });
     }
@@ -83,16 +82,16 @@ export default function ServicesPage() {
     const resetButton = document.getElementById('reset-filters');
     if (resetButton) {
       resetButton.addEventListener('click', () => {
-        filterInputs.forEach((input: HTMLInputElement) => {
-          input.checked = true;
+        filterInputs.forEach((input) => {
+          (input as HTMLInputElement).checked = true;
         });
         if (searchInput) {
           searchInput.value = '';
         }
         filterServices();
         // Reset all service cards to visible
-        serviceCards.forEach((card: HTMLElement) => {
-          card.style.display = '';
+        serviceCards.forEach((card) => {
+          (card as HTMLElement).style.display = '';
         });
       });
     }
@@ -142,12 +141,8 @@ export default function ServicesPage() {
   return (
     <>
       <div className="h-16" />
-      <Breadcrumb items={[
-        { label: 'Home', href: '/homepage' },
-        { label: 'Services', href: '/services' }
-      ]} />
           {/* Hero Section */}
-          <section className="relative py-20 bg-primary-700">
+          <section className="relative py-20 bg-primary-700 overflow-hidden -mt-4">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-10">
               <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -173,12 +168,12 @@ export default function ServicesPage() {
             </div>
           </section>
           {/* Main Content Area */}
-          <section className="py-16 bg-background">
+          <section className="py-16" style={{backgroundColor: '#FAFCFB'}}>
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
-              <div className="grid lg:grid-cols-4 gap-8 items-start">
+              <div className="grid lg:grid-cols-4 gap-8" style={{alignItems: 'start'}}>
                 {/* Left Sidebar - Filters */}
-                <div className="lg:col-span-1 self-start">
-                  <div className="sticky top-24 space-y-6">
+                <div className="lg:col-span-1" style={{position: 'sticky', top: '5rem', alignSelf: 'flex-start', background: 'linear-gradient(to bottom, rgba(250, 252, 251, 0.5) 0%, rgba(232, 237, 241, 0.3) 100%)', paddingBottom: '2rem', borderRadius: '0.5rem'}}>
+                  <div className="space-y-6">
                     {/* Search */}
                     <div className="card">
                       <h3 className="text-lg font-semibold text-primary mb-4">Search Services</h3>
@@ -212,18 +207,39 @@ export default function ServicesPage() {
                       </div>
                       <button id="reset-filters" className="mt-4 text-accent hover:text-accent-600 text-sm font-medium">Reset Filters</button>
                     </div>
-                    {/* Service Comparison */}
-                    {/* Removed Compare Services section */}
+                    {/* Quick Contact */}
+                    <div className="card">
+                      <h3 className="text-lg font-semibold text-primary mb-4">Need Help?</h3>
+                      <p className="text-sm text-text-secondary mb-4">Can't find what you're looking for? Our team is here to assist you.</p>
+                      <Link href="/contact" className="btn-primary text-sm w-full text-center block">Contact Us</Link>
+                    </div>
+                    {/* Quick Stats */}
+                    <div className="card">
+                      <h3 className="text-lg font-semibold text-primary mb-4">Our Impact</h3>
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <span className="text-text-secondary text-sm">Clients Served</span>
+                          <span className="text-2xl font-bold text-primary">500+</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-text-secondary text-sm">Training Programs</span>
+                          <span className="text-2xl font-bold text-primary">50+</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-text-secondary text-sm">Success Rate</span>
+                          <span className="text-2xl font-bold text-primary">98%</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 {/* Main Content - Services Grid */}
-                <div className="lg:col-span-2">
+                <div className="lg:col-span-2" style={{overflow: 'visible'}}>
                   <div className="mb-8">
                     <h2 className="text-2xl font-bold text-primary mb-4">Our Services</h2>
                     <p className="text-text-secondary">Explore our comprehensive range of corporate governance services designed to meet your organization's specific needs.</p>
                   </div>
-                  <div className="pr-2" style={{maxHeight: '80vh', overflowY: 'auto'}}>
-                    <div id="services-grid" className="space-y-6">
+                  <div id="services-grid" className="space-y-6" style={{overflow: 'visible'}}>
                       {/* Service Card 1: Board Evaluations */}
                       <div className="service-card card hover:shadow-floating transition-all duration-300" data-category="evaluation" data-service="board-evaluations">
                         <div className="flex items-start space-x-4">
@@ -560,20 +576,19 @@ export default function ServicesPage() {
                           </div>
                         </div>
                       </div>
+                      {/* No Results Message */}
+                      <div id="no-results" className="hidden text-center py-12">
+                        <svg className="w-16 h-16 text-text-secondary mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <h3 className="text-lg font-medium text-text-primary mb-2">No services found</h3>
+                        <p className="text-text-secondary">Try adjusting your search criteria or filters</p>
+                      </div>
                     </div>
-                    {/* No Results Message */}
-                    <div id="no-results" className="hidden text-center py-12">
-                      <svg className="w-16 h-16 text-text-secondary mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                      </svg>
-                      <h3 className="text-lg font-medium text-text-primary mb-2">No services found</h3>
-                      <p className="text-text-secondary">Try adjusting your search criteria or filters</p>
-                    </div>
-                  </div>
                 </div>
                 {/* Right Sidebar */}
-                <div className="lg:col-span-1 self-start">
-                  <div className="sticky top-24 space-y-6">
+                <div className="lg:col-span-1" style={{position: 'sticky', top: '5rem', alignSelf: 'flex-start', background: 'linear-gradient(to bottom, rgba(250, 252, 251, 0.5) 0%, rgba(232, 237, 241, 0.3) 100%)', paddingBottom: '2rem', borderRadius: '0.5rem'}}>
+                  <div className="space-y-6">
                     {/* Downloadable Resources */}
                     <div className="relative card overflow-visible pt-8">
                       <span className="absolute right-2 -translate-y-1/2 bg-accent text-primary text-[10px] font-semibold px-2 py-[2px] z-20 shadow-subtle" style={{top: 0}}>Coming Soon</span>
@@ -628,13 +643,49 @@ export default function ServicesPage() {
                         </div>
                       </div>
                     </div>
+                    {/* Get Started */}
+                    <div className="card">
+                      <h3 className="text-lg font-semibold text-primary mb-4">Get Started</h3>
+                      <p className="text-sm text-text-secondary mb-4">Ready to elevate your governance? Schedule a consultation with our experts.</p>
+                      <Link href="/contact" className="btn-accent text-sm w-full text-center block">Schedule Consultation</Link>
+                    </div>
+                    {/* Why Choose Us */}
+                    <div className="card">
+                      <h3 className="text-lg font-semibold text-primary mb-4">Why Choose Us</h3>
+                      <div className="space-y-3">
+                        <div className="flex items-start space-x-2">
+                          <svg className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span className="text-sm text-text-secondary">Expert consultants with decades of experience</span>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <svg className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span className="text-sm text-text-secondary">Tailored solutions for your organization</span>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <svg className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span className="text-sm text-text-secondary">Proven track record of success</span>
+                        </div>
+                        <div className="flex items-start space-x-2">
+                          <svg className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span className="text-sm text-text-secondary">Comprehensive support throughout</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </section>
           {/* FAQ Section */}
-          <section className="py-16" style={{backgroundColor: '#E0E8EB'}}>
+          <section className="py-16" style={{backgroundColor: '#E8EDF1'}}>
             <div className="max-w-4xl mx-auto px-6 lg:px-8">
               <div className="text-center mb-12">
                 <h2 className="text-3xl font-bold text-primary mb-4">Frequently Asked Questions</h2>

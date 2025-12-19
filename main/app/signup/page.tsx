@@ -50,7 +50,7 @@ export default function SignupPage() {
       </section>
 
       {/* Registration Form Section */}
-      <section className="py-20 bg-background">
+      <section className="py-20" style={{backgroundColor: '#FAFCFB'}}>
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <div className="card mb-8">
             <div className="flex items-start space-x-3 mb-6">

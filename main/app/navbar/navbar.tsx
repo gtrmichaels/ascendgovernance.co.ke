@@ -47,7 +47,6 @@ export default function Navbar() {
   const navItems = [
     { href: '/homepage', label: 'Home' },
     { href: '/services', label: 'Services' },
-    { href: '/homepage#about', label: 'About' },
     { href: '/research', label: 'Research' },
     { href: '/contact', label: 'Contact' },
   ];
@@ -82,6 +81,9 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
+            <Link href="/signup" className="btn-accent text-sm px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300 rounded-none">
+              Sign In
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -118,6 +120,13 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
+            <Link 
+              href="/signup" 
+              className="btn-accent text-sm px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300 text-center rounded-none"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Sign In
+            </Link>
           </div>
         </div>
       </div>

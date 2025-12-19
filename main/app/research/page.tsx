@@ -35,7 +35,7 @@ export default function ResearchPage() {
       </section>
 
       {/* Main Content Section */}
-      <section className="py-16 bg-background">
+      <section className="py-16" style={{backgroundColor: '#FAFCFB'}}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-4 gap-8 items-start">
             {/* Left Sidebar - Filters */}
@@ -74,13 +74,12 @@ export default function ResearchPage() {
             </div>
 
             {/* Main Content - Resources Grid */}
-            <div className="lg:col-span-2">
+            <div className="lg:col-span-2" style={{overflow: 'visible'}}>
               <div className="mb-8">
                 <h2 className="text-2xl font-bold text-primary mb-4">Research Resources</h2>
                 <p className="text-text-secondary">Explore our latest insights, reports, and resources to help you stay informed about corporate governance trends and best practices.</p>
               </div>
-              <div className="pr-2" style={{maxHeight: '80vh', overflowY: 'auto'}}>
-                <div id="resources-grid" className="space-y-6">
+              <div id="resources-grid" className="space-y-6" style={{overflow: 'visible'}}>
                   {/* Blog Post 1 */}
                   <div className="resource-card card hover:shadow-floating transition-all duration-300" data-category="blog">
                     <div className="flex items-start space-x-4">
@@ -219,7 +218,6 @@ export default function ResearchPage() {
                     </div>
                   </div>
                 </div>
-              </div>
             </div>
 
             {/* Right Sidebar - Additional Resources */}
