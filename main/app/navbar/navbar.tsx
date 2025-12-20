@@ -81,7 +81,7 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <Link href="/signup" className="btn-accent text-sm px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300 rounded-none">
+            <Link href="/signin" className="btn-accent text-sm px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300 rounded-none">
               Sign In
             </Link>
           </div>
@@ -121,7 +121,7 @@ export default function Navbar() {
               </Link>
             ))}
             <Link 
-              href="/signup" 
+              href="/signin" 
               className="btn-accent text-sm px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300 text-center rounded-none"
               onClick={() => setMobileMenuOpen(false)}
             >
