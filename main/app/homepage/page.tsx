@@ -61,63 +61,65 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
             <Link href="/services" className="btn-accent text-lg px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300">Explore Services</Link>
             <Link href="/contact" className="bg-white/10 backdrop-blur-sm text-white border border-primary-400/50 px-8 py-4 rounded-lg font-medium hover:bg-primary-400/20 hover:border-primary-400 transition-all duration-300">Schedule Consultation</Link>
-            <Link href="/register" className="bg-white/10 backdrop-blur-sm text-white border border-primary-400/50 px-8 py-4 rounded-lg font-medium hover:bg-primary-400/20 hover:border-primary-400 transition-all duration-300">Register</Link>
+            <Link href="/register" className="bg-white/10 backdrop-blur-sm text-white border border-primary-400/50 px-8 py-4 rounded-lg font-medium hover:bg-primary-400/20 hover:border-primary-400 transition-all duration-300">Join the Network</Link>
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 relative bg-gradient-to-br from-primary-50 to-secondary-100" style={{backgroundImage: 'radial-gradient(rgba(34,197,94,0.12) 1.5px, transparent 1.5px), linear-gradient(to bottom right, #E9F5EE, #F8F9FA)', backgroundSize: '22px 22px, auto', backgroundPosition: '0 0, center'}}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <section id="about" className="relative py-24 md:py-32 overflow-hidden">
+        {/* Background with kenya1.jpg and green overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/images/kenya1.jpg" 
+            alt="Kenya flag ribbon" 
+            className="w-full h-full object-cover"
+            style={{objectPosition: 'center'}}
+          />
+          {/* Green overlay with subtle gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-700/35 via-primary-600/30 to-primary-500/35" />
+          {/* Gradient blend with page background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-50/85 via-primary-100/75 to-secondary-100/85" />
+        </div>
+        
+        <div className="relative z-10 max-w-5xl mx-auto px-6 lg:px-8">
+          {/* Who We Are Content - Organic irregular shape that blends seamlessly */}
+          <div 
+            className="relative p-10 md:p-14 lg:p-20"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.93) 50%, rgba(255,255,255,0.95) 100%)',
+              backdropFilter: 'blur(25px)',
+              WebkitBackdropFilter: 'blur(25px)',
+              clipPath: 'polygon(0% 6%, 2% 0%, 7% 3%, 12% 1%, 18% 4%, 24% 2%, 30% 5%, 38% 3%, 46% 6%, 54% 4%, 62% 7%, 70% 5%, 78% 8%, 86% 6%, 92% 9%, 97% 7%, 100% 10%, 100% 90%, 97% 94%, 92% 92%, 86% 95%, 78% 93%, 70% 96%, 62% 94%, 54% 97%, 46% 95%, 38% 98%, 30% 96%, 24% 99%, 18% 97%, 12% 100%, 7% 98%, 2% 100%, 0% 94%)',
+              maskImage: 'radial-gradient(ellipse 85% 110% at 50% 50%, black 65%, transparent 100%)',
+              WebkitMaskImage: 'radial-gradient(ellipse 85% 110% at 50% 50%, black 65%, transparent 100%)',
+            }}
+          >
+            {/* Subtle edge glow for seamless blend */}
             <div 
-              className="w-full" 
-              style={{transition: 'transform 300ms var(--ease-out)', willChange: 'transform'}}
-              onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-4px) scale(1.01)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.transform = 'none'; }}
-            >
-              <svg viewBox="0 0 800 600" className="w-full h-auto" role="img" aria-label="About content inside computer screen">
-                <rect x={40} y={40} width={720} height={440} rx={24} fill="#295D44" />
-                <rect x={60} y={60} width={680} height={360} rx={12} fill="#FFFFFF" style={{filter: 'drop-shadow(0 12px 24px rgba(0,0,0,0.08))'}} />
-                <rect x={60} y={420} width={680} height={40} rx={10} fill="#295D44" />
-                <rect x={365} y={500} width={70} height={20} rx={6} fill="#295D44" />
-                <path d="M360 520 L440 520 L470 560 Q400 575 330 560 Z" fill="#295D44" />
-                <foreignObject x={70} y={70} width={660} height={340}>
-                  <div className="h-full w-full p-6 md:p-10">
-                    <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Who We Are</h2>
-                    <p className="text-lg md:text-xl leading-relaxed md:leading-loose text-text-secondary mb-4">
-                      We elevate corporate governance through strategic consultancy, targeted training, and expert guidance—strengthening leadership and ensuring regulatory compliance across your organization.
-                    </p>
-                    <p className="text-lg md:text-xl leading-relaxed md:leading-loose text-text-secondary mb-6">
-                      With decades of experience, we deliver tailored solutions that drive sustainable growth while upholding integrity and transparency.
-                    </p>
-                    <div className="flex items-center space-x-4">
-                      <div className="flex -space-x-2">
-                        <img src="/images/swklogo.png" alt="SWK Logo" className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-primary object-contain bg-white p-1" />
-                        <img src="/images/capitalogo.png" alt="Capita Logo" className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-primary object-contain bg-white p-1" />
-                      </div>
-                      <span className="text-base md:text-lg text-text-secondary">Trusted by leading legal organizations</span>
-                    </div>
-                  </div>
-                </foreignObject>
-              </svg>
-            </div>
-            <div 
-              className="relative rounded-lg shadow-floating" 
-              style={{transition: 'transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out)', willChange: 'transform, box-shadow'}}
-              onMouseEnter={(e) => { 
-                e.currentTarget.style.transform = 'translateY(-4px) scale(1.02)'; 
-                e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(0,0,0,0.25)'; 
+              className="absolute inset-0 pointer-events-none opacity-60"
+              style={{
+                background: 'radial-gradient(ellipse 90% 110% at 50% 50%, transparent 0%, rgba(33, 59, 49, 0.04) 55%, transparent 100%)',
+                clipPath: 'inherit',
               }}
-              onMouseLeave={(e) => { 
-                e.currentTarget.style.transform = 'none'; 
-                e.currentTarget.style.boxShadow = ''; 
-              }}
-            >
-              <img src="/images/board.png" alt="Governance and leadership" className="w-full h-96 object-cover rounded-lg" />
-              <div className="absolute -right-6 text-white p-4 shadow-floating" style={{bottom: '-3rem', backgroundColor: '#295D44'}}>
-                <div className="text-xl font-bold">Expertise</div>
-                <div className="text-sm">Founded by professionals with <br />deep industry knowledge</div>
+            />
+            
+            <div className="relative z-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-primary mb-6 tracking-tight">Who We Are</h2>
+              <div className="space-y-5 mb-8">
+                <p className="text-base md:text-lg leading-relaxed text-text-secondary font-light">
+                  We elevate corporate governance through strategic consultancy, targeted training, and expert guidance—strengthening leadership and ensuring regulatory compliance across your organization.
+                </p>
+                <p className="text-base md:text-lg leading-relaxed text-text-secondary font-light">
+                  With decades of experience, we deliver tailored solutions that drive sustainable growth while upholding integrity and transparency.
+                </p>
+              </div>
+              <div className="flex flex-wrap items-center gap-4 pt-6 border-t border-border/50">
+                <div className="flex -space-x-2">
+                  <img src="/images/swklogo.png" alt="SWK Logo" className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-primary/20 object-contain bg-white p-1 shadow-sm" />
+                  <img src="/images/capitalogo.png" alt="Capita Logo" className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-primary/20 object-contain bg-white p-1 shadow-sm" />
+                </div>
+                <span className="text-sm md:text-base text-text-secondary font-medium">Trusted by leading legal organizations</span>
               </div>
             </div>
           </div>

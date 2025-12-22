@@ -3,11 +3,17 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
+import { getUser, clearAuth, getDashboardPath, type User } from '../lib/auth';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currentHash, setCurrentHash] = useState('');
+  const [user, setUser] = useState<User | null>(null);
   const pathname = usePathname();
+
+  useEffect(() => {
+    setUser(getUser());
+  }, []);
 
   // Track hash changes for client-side navigation
   useEffect(() => {
@@ -81,9 +87,31 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <Link href="/signin" className="btn-accent text-sm px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300 rounded-none">
-              Sign In
-            </Link>
+            {user ? (
+              <div className="flex items-center space-x-4">
+                <Link 
+                  href={getDashboardPath(user.role)} 
+                  className="text-text-primary hover:text-primary transition-colors duration-200"
+                >
+                  {user.role === 'ADMIN' && 'Admin Dashboard'}
+                  {user.role === 'CONSULTANT' && 'Consultant Dashboard'}
+                  {user.role === 'USER' && 'My Dashboard'}
+                </Link>
+                <button
+                  onClick={() => {
+                    clearAuth();
+                    window.location.href = '/signin';
+                  }}
+                  className="btn-secondary text-sm px-4 py-2"
+                >
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <Link href="/signin" className="btn-accent text-sm px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300 rounded-none">
+                Sign In
+              </Link>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -120,13 +148,36 @@ export default function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <Link 
-              href="/signin" 
-              className="btn-accent text-sm px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300 text-center rounded-none"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Sign In
-            </Link>
+            {user ? (
+              <>
+                <Link 
+                  href={getDashboardPath(user.role)} 
+                  className="text-text-primary hover:text-primary transition-colors duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {user.role === 'ADMIN' && 'Admin Dashboard'}
+                  {user.role === 'CONSULTANT' && 'Consultant Dashboard'}
+                  {user.role === 'USER' && 'My Dashboard'}
+                </Link>
+                <button
+                  onClick={() => {
+                    clearAuth();
+                    window.location.href = '/signin';
+                  }}
+                  className="btn-secondary text-sm px-4 py-2"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <Link 
+                href="/signin" 
+                className="btn-accent text-sm px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-300 text-center rounded-none"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Sign In
+              </Link>
+            )}
           </div>
         </div>
       </div>

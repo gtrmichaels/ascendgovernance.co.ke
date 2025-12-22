@@ -53,9 +53,58 @@ export default function RegisterUserPage() {
               </p>
             </div>
 
-            <form id="user-register-form" className="space-y-6" action="/api/auth/register" method="POST">
-              <input type="hidden" name="form_type" defaultValue="user_register" />
-              <input type="hidden" name="user_type" defaultValue="user" />
+            <form 
+              id="user-register-form" 
+              className="space-y-6" 
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                const password = formData.get('password') as string;
+                const confirmPassword = formData.get('confirmPassword') as string;
+
+                if (password !== confirmPassword) {
+                  alert('Passwords do not match');
+                  return;
+                }
+
+                try {
+                  const response = await fetch('http://localhost:3001/auth/register', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({
+                      email: formData.get('email'),
+                      password,
+                      firstName: formData.get('firstName'),
+                      lastName: formData.get('lastName'),
+                      phone: formData.get('phone'),
+                      organization: formData.get('organization'),
+                      userType: 'user',
+                    }),
+                  });
+
+                  const data = await response.json();
+
+                  if (!response.ok) {
+                    throw new Error(data.error || 'Registration failed');
+                  }
+
+                  // Store access token in localStorage and cookie
+                  localStorage.setItem('accessToken', data.accessToken);
+                  localStorage.setItem('user', JSON.stringify(data.user));
+                  
+                  // Also set cookie for middleware
+                  document.cookie = `accessToken=${data.accessToken}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Strict`;
+
+                  // Redirect to user dashboard
+                  window.location.href = '/user';
+                } catch (err) {
+                  alert(err instanceof Error ? err.message : 'Registration failed');
+                }
+              }}
+            >
               
               <div className="grid md:grid-cols-2 gap-6">
                 <div>

@@ -6,6 +6,7 @@ import { useState } from 'react';
 export default function SignInPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <>
@@ -51,7 +52,64 @@ export default function SignInPage() {
               </p>
             </div>
 
-            <form id="signin-form" className="space-y-6" action="/api/auth/signin" method="POST">
+            {error && (
+              <div className="mb-4 p-3 bg-error-50 border border-error-200 rounded-lg">
+                <p className="text-sm text-error-700">{error}</p>
+              </div>
+            )}
+
+            <form 
+              id="signin-form" 
+              className="space-y-6" 
+              onSubmit={async (e) => {
+                e.preventDefault();
+                setIsLoading(true);
+                setError(null);
+
+                const formData = new FormData(e.currentTarget);
+                const email = formData.get('email') as string;
+                const password = formData.get('password') as string;
+
+                try {
+                  const response = await fetch('http://localhost:3001/auth/login', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ email, password }),
+                  });
+
+                  const data = await response.json();
+
+                  if (!response.ok) {
+                    throw new Error(data.error || 'Login failed');
+                  }
+
+                  // Store access token in localStorage and cookie
+                  localStorage.setItem('accessToken', data.accessToken);
+                  localStorage.setItem('user', JSON.stringify(data.user));
+                  
+                  // Also set cookie for middleware
+                  document.cookie = `accessToken=${data.accessToken}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Strict`;
+
+                  // Redirect based on role
+                  const role = data.user.role;
+                  if (role === 'ADMIN') {
+                    window.location.href = '/admin';
+                  } else if (role === 'CONSULTANT') {
+                    window.location.href = '/consultant';
+                  } else if (role === 'USER') {
+                    window.location.href = '/user';
+                  } else {
+                    window.location.href = '/homepage';
+                  }
+                } catch (err) {
+                  setError(err instanceof Error ? err.message : 'An error occurred');
+                  setIsLoading(false);
+                }
+              }}
+            >
               <input type="hidden" name="form_type" defaultValue="signin" />
               <input type="hidden" name="csrf_token" defaultValue="" />
               <input type="text" name="company_website" tabIndex={-1} autoComplete="off" style={{position: 'absolute', left: '-10000px'}} />

@@ -301,8 +301,67 @@ export default function RegisterConsultantPage() {
               </div>
 
               {/* Import the form from signup page - I'll create it inline here */}
-              <form id="consultant-form" className="card space-y-6" action="/api/consultant" method="POST" encType="multipart/form-data" noValidate>
-                <input type="hidden" name="form_type" defaultValue="consultant" />
+              <form 
+                id="consultant-form" 
+                className="card space-y-6" 
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const formData = new FormData(e.currentTarget);
+                  const password = formData.get('password') as string;
+                  const confirmPassword = formData.get('confirmPassword') as string;
+
+                  if (password !== confirmPassword) {
+                    alert('Passwords do not match');
+                    return;
+                  }
+
+                  if (password.length < 8) {
+                    alert('Password must be at least 8 characters long');
+                    return;
+                  }
+                  
+                  try {
+                    // For now, submit basic registration. File uploads can be handled separately
+                    const response = await fetch('http://localhost:3001/auth/register', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      credentials: 'include',
+                      body: JSON.stringify({
+                        email: formData.get('email'),
+                        password,
+                        firstName: formData.get('firstName'),
+                        lastName: formData.get('lastName'),
+                        phone: formData.get('phone'),
+                        linkedinUrl: formData.get('linkedin'),
+                        bio: formData.get('bio'),
+                        qualifications: formData.get('qualifications'),
+                        userType: 'consultant',
+                      }),
+                    });
+
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                      throw new Error(data.error || 'Registration failed');
+                    }
+
+                    // Store access token in localStorage and cookie
+                    localStorage.setItem('accessToken', data.accessToken);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    
+                    // Also set cookie for middleware
+                    document.cookie = `accessToken=${data.accessToken}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Strict`;
+
+                    // Redirect to consultant dashboard (pending approval)
+                    window.location.href = '/consultant';
+                  } catch (err) {
+                    alert(err instanceof Error ? err.message : 'Registration failed');
+                  }
+                }}
+                noValidate
+              >
                 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
@@ -329,6 +388,18 @@ export default function RegisterConsultantPage() {
                 <div>
                   <label htmlFor="linkedin" className="block text-sm font-medium text-text-primary mb-2">LinkedIn Profile URL *</label>
                   <input type="url" id="linkedin" name="linkedin" className="input-field" placeholder="https://linkedin.com/in/your-handle" required />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="password" className="block text-sm font-medium text-text-primary mb-2">Password *</label>
+                    <input type="password" id="password" name="password" className="input-field" placeholder="Minimum 8 characters" required minLength={8} />
+                    <p className="text-xs text-text-secondary mt-1">Must be at least 8 characters long</p>
+                  </div>
+                  <div>
+                    <label htmlFor="confirmPassword" className="block text-sm font-medium text-text-primary mb-2">Confirm Password *</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" className="input-field" placeholder="Confirm your password" required />
+                  </div>
                 </div>
 
                 <div>
