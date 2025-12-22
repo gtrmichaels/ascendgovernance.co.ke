@@ -1,61 +1,130 @@
 'use client';
 
 import { useState } from 'react';
-import { mockConsultants } from '../data/mockData';
 import StatusBadge from '../components/StatusBadge';
 import Modal from '../components/Modal';
 
-export default function ConsultantsPage() {
-  const [selectedConsultant, setSelectedConsultant] = useState<any>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+interface Consultant {
+  id: number;
+  name: string;
+  email: string;
+  expertise: string[];
+  status: 'pending' | 'approved' | 'rejected';
+  bio: string;
+}
+
+export default function AdminConsultants() {
+  const [selectedConsultant, setSelectedConsultant] = useState<Consultant | null>(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const [consultants] = useState<Consultant[]>([
+    {
+      id: 1,
+      name: 'Dr. Jane Smith',
+      email: 'jane.smith@ascendgovernance.co.ke',
+      expertise: ['Board Composition', 'Compliance'],
+      status: 'pending',
+      bio: 'Experienced corporate governance consultant with 15+ years of expertise.',
+    },
+    {
+      id: 2,
+      name: 'John Doe',
+      email: 'john.doe@ascendgovernance.co.ke',
+      expertise: ['Risk Management', 'Strategic Planning'],
+      status: 'approved',
+      bio: 'Specialized in risk management and strategic organizational planning.',
+    },
+    {
+      id: 3,
+      name: 'Sarah Johnson',
+      email: 'sarah.johnson@ascendgovernance.co.ke',
+      expertise: ['Compliance', 'Audit'],
+      status: 'approved',
+      bio: 'Expert in compliance and audit processes for large organizations.',
+    },
+    {
+      id: 4,
+      name: 'Michael Brown',
+      email: 'michael.brown@ascendgovernance.co.ke',
+      expertise: ['Board Composition'],
+      status: 'rejected',
+      bio: 'Corporate governance specialist focusing on board effectiveness.',
+    },
+  ]);
+
+  const handleViewProfile = (consultant: Consultant) => {
+    setSelectedConsultant(consultant);
+    setShowModal(true);
+  };
+
+  const handleApprove = (consultantId: number) => {
+    // In a real app, this would update the consultant status
+    console.log(`Approve consultant ${consultantId}`);
+  };
+
+  const handleReject = (consultantId: number) => {
+    // In a real app, this would update the consultant status
+    console.log(`Reject consultant ${consultantId}`);
+  };
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-primary">Consultant Management</h1>
-        <p className="text-text-secondary mt-1">Review and manage consultant applications</p>
+      {/* Page Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-text-primary">Consultants</h1>
+          <p className="text-text-secondary mt-2">Manage consultant applications and profiles</p>
+        </div>
       </div>
 
+      {/* Consultants Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {mockConsultants.map((consultant) => (
-          <div key={consultant.id} className="card hover:shadow-floating transition-all duration-300">
+        {consultants.map((consultant) => (
+          <div key={consultant.id} className="card">
             <div className="flex items-start justify-between mb-4">
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-primary mb-1">{consultant.name}</h3>
-                <p className="text-sm text-text-secondary">{consultant.email}</p>
+                <h3 className="text-lg font-semibold text-text-primary">{consultant.name}</h3>
+                <p className="text-sm text-text-secondary mt-1">{consultant.email}</p>
               </div>
-              <StatusBadge status={consultant.status as any} />
+              <StatusBadge status={consultant.status} />
             </div>
-            <div className="space-y-2 mb-4">
-              <div>
-                <span className="text-sm text-text-secondary">Specialization:</span>
-                <p className="text-text-primary font-medium">{consultant.specialization}</p>
-              </div>
-              <div>
-                <span className="text-sm text-text-secondary">Experience:</span>
-                <p className="text-text-primary font-medium">{consultant.experience}</p>
-              </div>
-              <div>
-                <span className="text-sm text-text-secondary">Submitted:</span>
-                <p className="text-text-primary font-medium">{consultant.submittedAt}</p>
+
+            <div className="mb-4">
+              <p className="text-sm text-text-secondary line-clamp-2">{consultant.bio}</p>
+            </div>
+
+            <div className="mb-4">
+              <div className="flex flex-wrap gap-2">
+                {consultant.expertise.map((area, index) => (
+                  <span
+                    key={index}
+                    className="px-2 py-1 bg-primary-50 text-primary-700 rounded text-xs font-medium"
+                  >
+                    {area}
+                  </span>
+                ))}
               </div>
             </div>
+
             <div className="flex items-center space-x-2 pt-4 border-t border-border">
               <button
-                onClick={() => {
-                  setSelectedConsultant(consultant);
-                  setIsModalOpen(true);
-                }}
-                className="btn-secondary flex-1 text-sm"
+                onClick={() => handleViewProfile(consultant)}
+                className="flex-1 btn-secondary text-sm py-2"
               >
                 View Profile
               </button>
               {consultant.status === 'pending' && (
                 <>
-                  <button className="btn-primary flex-1 text-sm">
+                  <button
+                    onClick={() => handleApprove(consultant.id)}
+                    className="flex-1 btn-primary text-sm py-2"
+                  >
                     Approve
                   </button>
-                  <button className="text-error hover:text-error-600 text-sm font-medium px-3">
+                  <button
+                    onClick={() => handleReject(consultant.id)}
+                    className="px-4 py-2 text-sm font-medium text-error-600 hover:bg-error-50 rounded-lg transition-colors"
+                  >
                     Reject
                   </button>
                 </>
@@ -65,47 +134,64 @@ export default function ConsultantsPage() {
         ))}
       </div>
 
+      {/* Consultant Detail Modal */}
       <Modal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
         title="Consultant Profile"
         size="lg"
       >
         {selectedConsultant && (
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="text-sm font-medium text-text-secondary">Name</label>
-                <p className="text-text-primary">{selectedConsultant.name}</p>
-              </div>
-              <div>
-                <label className="text-sm font-medium text-text-secondary">Email</label>
-                <p className="text-text-primary">{selectedConsultant.email}</p>
-              </div>
-              <div>
-                <label className="text-sm font-medium text-text-secondary">Specialization</label>
-                <p className="text-text-primary">{selectedConsultant.specialization}</p>
-              </div>
-              <div>
-                <label className="text-sm font-medium text-text-secondary">Experience</label>
-                <p className="text-text-primary">{selectedConsultant.experience}</p>
-              </div>
-              <div>
-                <label className="text-sm font-medium text-text-secondary">Status</label>
-                <div className="mt-1">
-                  <StatusBadge status={selectedConsultant.status as any} />
-                </div>
-              </div>
-              <div>
-                <label className="text-sm font-medium text-text-secondary">Submitted At</label>
-                <p className="text-text-primary">{selectedConsultant.submittedAt}</p>
+          <div className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">Name</label>
+              <p className="text-text-primary font-semibold text-lg">{selectedConsultant.name}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">Email</label>
+              <p className="text-text-primary">{selectedConsultant.email}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-1">Status</label>
+              <StatusBadge status={selectedConsultant.status} />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-2">Bio</label>
+              <p className="text-text-primary leading-relaxed">{selectedConsultant.bio}</p>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-2">Areas of Expertise</label>
+              <div className="flex flex-wrap gap-2">
+                {selectedConsultant.expertise.map((area, index) => (
+                  <span
+                    key={index}
+                    className="px-3 py-1 bg-primary-50 text-primary-700 rounded-full text-sm font-medium"
+                  >
+                    {area}
+                  </span>
+                ))}
               </div>
             </div>
-            <div className="pt-4 border-t border-border">
-              <h4 className="font-medium text-primary mb-2">Additional Information</h4>
-              <p className="text-text-secondary text-sm">
-                Full consultant profile details, qualifications, and documents would be displayed here.
-              </p>
+            <div className="flex justify-end space-x-3 pt-4 border-t border-border">
+              {selectedConsultant.status === 'pending' && (
+                <>
+                  <button
+                    onClick={() => handleReject(selectedConsultant.id)}
+                    className="btn-secondary border-error-200 text-error-600 hover:bg-error-50"
+                  >
+                    Reject
+                  </button>
+                  <button
+                    onClick={() => handleApprove(selectedConsultant.id)}
+                    className="btn-primary"
+                  >
+                    Approve
+                  </button>
+                </>
+              )}
+              <button onClick={() => setShowModal(false)} className="btn-secondary">
+                Close
+              </button>
             </div>
           </div>
         )}

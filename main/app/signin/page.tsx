@@ -28,7 +28,7 @@ export default function SignInPage() {
             Welcome Back
           </h1>
           <p className="text-xl text-white/90 max-w-3xl mx-auto">
-            Sign in to access your consultant dashboard and manage your governance services.
+            Sign in to access your account. The system will automatically route you to the appropriate dashboard.
           </p>
         </div>
       </section>
@@ -192,8 +192,8 @@ export default function SignInPage() {
               <div className="pt-6 border-t border-border">
                 <p className="text-center text-sm text-text-secondary">
                   Don't have an account?{' '}
-                  <Link href="/signup" className="text-accent hover:text-accent-600 font-medium transition-colors">
-                    Register as Consultant
+                  <Link href="/register" className="text-accent hover:text-accent-600 font-medium transition-colors">
+                    Create Account
                   </Link>
                 </p>
               </div>

@@ -239,10 +239,9 @@ export default function ServicesPage() {
                     <h2 className="text-2xl font-bold text-primary mb-4">Our Services</h2>
                     <p className="text-text-secondary">Explore our comprehensive range of corporate governance services designed to meet your organization's specific needs.</p>
                   </div>
-                  <div id="services-grid" className="space-y-0" style={{overflow: 'visible'}}>
+                  <div id="services-grid" className="space-y-6" style={{overflow: 'visible'}}>
                       {/* Service Card 1: Board Evaluations */}
-                      <div className="py-6 -mx-6 lg:-mx-8 px-6 lg:px-8" style={{backgroundColor: '#FAFCFB'}}>
-                        <div className="service-card hover:shadow-floating transition-all duration-300" data-category="evaluation" data-service="board-evaluations" style={{backgroundColor: '#FAFCFB'}}>
+                      <div className="service-card card hover:shadow-floating transition-all duration-300" data-category="evaluation" data-service="board-evaluations">
                         <div className="flex items-start space-x-4">
                           <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                             <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -282,11 +281,9 @@ export default function ServicesPage() {
                             </div>
                           </div>
                         </div>
-                        </div>
                       </div>
                       {/* Service Card 2: Board Trainings */}
-                      <div className="py-6 -mx-6 lg:-mx-8 px-6 lg:px-8" style={{backgroundColor: '#E8EDF1'}}>
-                        <div className="service-card hover:shadow-floating transition-all duration-300" data-category="training" data-service="board-trainings" style={{backgroundColor: '#E8EDF1'}}>
+                      <div className="service-card card hover:shadow-floating transition-all duration-300" data-category="training" data-service="board-trainings">
                         <div className="flex items-start space-x-4">
                           <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                             <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -326,11 +323,9 @@ export default function ServicesPage() {
                             </div>
                           </div>
                         </div>
-                        </div>
                       </div>
                       {/* Service Card 3: Secretarial Trainings */}
-                      <div className="py-6 -mx-6 lg:-mx-8 px-6 lg:px-8" style={{backgroundColor: '#FAFCFB'}}>
-                        <div className="service-card hover:shadow-floating transition-all duration-300" data-category="training" data-service="secretarial-trainings" style={{backgroundColor: '#FAFCFB'}}>
+                      <div className="service-card card hover:shadow-floating transition-all duration-300" data-category="training" data-service="secretarial-trainings">
                         <div className="flex items-start space-x-4">
                           <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                             <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -370,11 +365,9 @@ export default function ServicesPage() {
                             </div>
                           </div>
                         </div>
-                        </div>
                       </div>
                       {/* Service Card 4: Corporate Governance Trainings */}
-                      <div className="py-6 -mx-6 lg:-mx-8 px-6 lg:px-8" style={{backgroundColor: '#E8EDF1'}}>
-                        <div className="service-card hover:shadow-floating transition-all duration-300" data-category="training" data-service="governance-trainings" style={{backgroundColor: '#E8EDF1'}}>
+                      <div className="service-card card hover:shadow-floating transition-all duration-300" data-category="training" data-service="governance-trainings">
                         <div className="flex items-start space-x-4">
                           <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                             <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -414,11 +407,9 @@ export default function ServicesPage() {
                             </div>
                           </div>
                         </div>
-                        </div>
                       </div>
                       {/* Service Card 5: Governance Consultancy */}
-                      <div className="py-6 -mx-6 lg:-mx-8 px-6 lg:px-8" style={{backgroundColor: '#FAFCFB'}}>
-                        <div className="service-card hover:shadow-floating transition-all duration-300" data-category="consultancy" data-service="governance-consultancy" style={{backgroundColor: '#FAFCFB'}}>
+                      <div className="service-card card hover:shadow-floating transition-all duration-300" data-category="consultancy" data-service="governance-consultancy">
                         <div className="flex items-start space-x-4">
                           <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                             <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -458,11 +449,9 @@ export default function ServicesPage() {
                             </div>
                           </div>
                         </div>
-                        </div>
                       </div>
                       {/* Service Card 6: Committee Trainings */}
-                      <div className="py-6 -mx-6 lg:-mx-8 px-6 lg:px-8" style={{backgroundColor: '#E8EDF1'}}>
-                        <div className="service-card hover:shadow-floating transition-all duration-300" data-category="training" data-service="committee-trainings" style={{backgroundColor: '#E8EDF1'}}>
+                      <div className="service-card card hover:shadow-floating transition-all duration-300" data-category="training" data-service="committee-trainings">
                         <div className="flex items-start space-x-4">
                           <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                             <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -502,11 +491,9 @@ export default function ServicesPage() {
                             </div>
                           </div>
                         </div>
-                        </div>
                       </div>
                       {/* Service Card 7: Board Recruitment */}
-                      <div className="py-6 -mx-6 lg:-mx-8 px-6 lg:px-8" style={{backgroundColor: '#FAFCFB'}}>
-                        <div className="service-card hover:shadow-floating transition-all duration-300" data-category="recruitment" data-service="board-recruitment" style={{backgroundColor: '#FAFCFB'}}>
+                      <div className="service-card card hover:shadow-floating transition-all duration-300" data-category="recruitment" data-service="board-recruitment">
                         <div className="flex items-start space-x-4">
                           <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                             <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -546,11 +533,9 @@ export default function ServicesPage() {
                             </div>
                           </div>
                         </div>
-                        </div>
                       </div>
                       {/* Service Card 8: Board Induction */}
-                      <div className="py-6 -mx-6 lg:-mx-8 px-6 lg:px-8" style={{backgroundColor: '#E8EDF1'}}>
-                        <div className="service-card hover:shadow-floating transition-all duration-300" data-category="recruitment" data-service="board-induction" style={{backgroundColor: '#E8EDF1'}}>
+                      <div className="service-card card hover:shadow-floating transition-all duration-300" data-category="recruitment" data-service="board-induction">
                         <div className="flex items-start space-x-4">
                           <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
                             <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -587,12 +572,11 @@ export default function ServicesPage() {
                             <div className="flex items-center justify-between">
                               <button className="toggle-details text-accent hover:text-accent-600 font-medium text-sm">Show Details</button>
                               <Link href="/contact" className="btn-primary text-sm px-4 py-2">Request Information</Link>
+                            </div>
                           </div>
                         </div>
-                        </div>
                       </div>
-                    </div>
-                    {/* No Results Message */}
+                      {/* No Results Message */}
                       <div id="no-results" className="hidden text-center py-12">
                         <svg className="w-16 h-16 text-text-secondary mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />

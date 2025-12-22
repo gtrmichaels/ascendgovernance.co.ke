@@ -43,11 +43,6 @@ export default function Navbar() {
     return pathname === hrefPath && !currentHash;
   };
 
-  // Hide navbar in admin routes
-  if (pathname?.startsWith('/admin')) {
-    return null;
-  }
-
   // Navigation items
   const navItems = [
     { href: '/homepage', label: 'Home' },

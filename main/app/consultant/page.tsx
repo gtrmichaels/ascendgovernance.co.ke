@@ -2,43 +2,42 @@
 
 import Link from 'next/link';
 
-export default function AdminDashboard() {
+export default function ConsultantDashboard() {
   // Mock data
   const kpiData = {
-    totalUsers: 156,
-    totalConsultants: 24,
-    totalBookings: 89,
-    totalMessages: 342,
+    upcomingSessions: 5,
+    totalClients: 24,
+    pendingRequests: 3,
   };
 
   const recentActivity = [
     {
       id: 1,
-      type: 'user',
-      message: 'New user registration: john.doe@example.com',
-      time: '2 hours ago',
-      status: 'new',
-    },
-    {
-      id: 2,
       type: 'booking',
-      message: 'Booking confirmed: Acme Corp with Consultant #12',
-      time: '1 day ago',
-      status: 'confirmed',
-    },
-    {
-      id: 3,
-      type: 'consultant',
-      message: 'New consultant application: Jane Smith',
-      time: '2 days ago',
+      message: 'New booking request from Acme Corp',
+      time: '2 hours ago',
       status: 'pending',
     },
     {
-      id: 4,
+      id: 2,
+      type: 'session',
+      message: 'Session completed with Tech Solutions Ltd',
+      time: '1 day ago',
+      status: 'completed',
+    },
+    {
+      id: 3,
       type: 'message',
       message: 'New message from Global Industries',
-      time: '3 days ago',
+      time: '2 days ago',
       status: 'unread',
+    },
+    {
+      id: 4,
+      type: 'booking',
+      message: 'Booking confirmed for Next Week',
+      time: '3 days ago',
+      status: 'confirmed',
     },
   ];
 
@@ -51,77 +50,73 @@ export default function AdminDashboard() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-text-secondary mb-1">Total Users</p>
-              <p className="text-3xl font-bold text-text-primary">{kpiData.totalUsers}</p>
+              <p className="text-sm text-text-secondary mb-1">Upcoming Sessions</p>
+              <p className="text-3xl font-bold text-text-primary">{kpiData.upcomingSessions}</p>
             </div>
             <div className="w-12 h-12 rounded-lg bg-primary-100 flex items-center justify-center">
-              <span className="text-2xl">👥</span>
-            </div>
-          </div>
-          <Link
-            href="/admin/users"
-            className="text-sm text-primary hover:underline mt-4 inline-block"
-          >
-            View all users →
-          </Link>
-        </div>
-
-        <div className="card">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-text-secondary mb-1">Total Consultants</p>
-              <p className="text-3xl font-bold text-text-primary">{kpiData.totalConsultants}</p>
-            </div>
-            <div className="w-12 h-12 rounded-lg bg-accent-100 flex items-center justify-center">
-              <span className="text-2xl">💼</span>
-            </div>
-          </div>
-          <Link
-            href="/admin/consultants"
-            className="text-sm text-primary hover:underline mt-4 inline-block"
-          >
-            View all consultants →
-          </Link>
-        </div>
-
-        <div className="card">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-text-secondary mb-1">Total Bookings</p>
-              <p className="text-3xl font-bold text-text-primary">{kpiData.totalBookings}</p>
-            </div>
-            <div className="w-12 h-12 rounded-lg bg-success-100 flex items-center justify-center">
               <span className="text-2xl">📅</span>
             </div>
           </div>
           <Link
-            href="/admin/bookings"
+            href="/consultant/sessions"
             className="text-sm text-primary hover:underline mt-4 inline-block"
           >
-            View all bookings →
+            View all sessions →
           </Link>
         </div>
 
         <div className="card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-text-secondary mb-1">Total Messages</p>
-              <p className="text-3xl font-bold text-text-primary">{kpiData.totalMessages}</p>
+              <p className="text-sm text-text-secondary mb-1">Total Clients</p>
+              <p className="text-3xl font-bold text-text-primary">{kpiData.totalClients}</p>
             </div>
-            <div className="w-12 h-12 rounded-lg bg-warning-100 flex items-center justify-center">
-              <span className="text-2xl">💬</span>
+            <div className="w-12 h-12 rounded-lg bg-accent-100 flex items-center justify-center">
+              <span className="text-2xl">👥</span>
             </div>
           </div>
           <Link
-            href="/admin/messages"
+            href="/consultant/bookings"
             className="text-sm text-primary hover:underline mt-4 inline-block"
           >
-            View all messages →
+            Manage clients →
           </Link>
+        </div>
+
+        <div className="card">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-text-secondary mb-1">Pending Requests</p>
+              <p className="text-3xl font-bold text-text-primary">{kpiData.pendingRequests}</p>
+            </div>
+            <div className="w-12 h-12 rounded-lg bg-warning-100 flex items-center justify-center">
+              <span className="text-2xl">⏳</span>
+            </div>
+          </div>
+          <Link
+            href="/consultant/bookings"
+            className="text-sm text-primary hover:underline mt-4 inline-block"
+          >
+            Review requests →
+          </Link>
+        </div>
+      </div>
+
+      {/* Availability Status */}
+      <div className="card">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-lg font-semibold text-text-primary mb-1">Availability Status</h2>
+            <p className="text-sm text-text-secondary">Control your availability for new bookings</p>
+          </div>
+          <label className="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" className="sr-only peer" defaultChecked />
+            <div className="w-14 h-7 bg-secondary-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-primary rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-primary"></div>
+          </label>
         </div>
       </div>
 
@@ -129,7 +124,7 @@ export default function AdminDashboard() {
       <div className="card">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-semibold text-text-primary">Recent Activity</h2>
-          <Link href="/admin/users" className="text-sm text-primary hover:underline">
+          <Link href="/consultant/bookings" className="text-sm text-primary hover:underline">
             View all →
           </Link>
         </div>
@@ -141,9 +136,8 @@ export default function AdminDashboard() {
             >
               <div className="flex-shrink-0">
                 <div className="w-10 h-10 rounded-full bg-secondary-100 flex items-center justify-center">
-                  {activity.type === 'user' && <span className="text-lg">👥</span>}
                   {activity.type === 'booking' && <span className="text-lg">📅</span>}
-                  {activity.type === 'consultant' && <span className="text-lg">💼</span>}
+                  {activity.type === 'session' && <span className="text-lg">💼</span>}
                   {activity.type === 'message' && <span className="text-lg">💬</span>}
                 </div>
               </div>
@@ -154,9 +148,9 @@ export default function AdminDashboard() {
               <div className="flex-shrink-0">
                 <span
                   className={`px-2 py-1 text-xs font-medium rounded-full ${
-                    activity.status === 'pending' || activity.status === 'new'
+                    activity.status === 'pending'
                       ? 'bg-warning-100 text-warning-700'
-                      : activity.status === 'confirmed'
+                      : activity.status === 'completed' || activity.status === 'confirmed'
                       ? 'bg-success-100 text-success-700'
                       : 'bg-primary-100 text-primary-700'
                   }`}

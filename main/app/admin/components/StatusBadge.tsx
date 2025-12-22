@@ -1,25 +1,45 @@
 interface StatusBadgeProps {
-  status: 'active' | 'inactive' | 'pending' | 'approved' | 'rejected' | 'suspended' | 'completed' | 'cancelled';
-  children?: React.ReactNode;
+  status: string;
+  variant?: 'default' | 'success' | 'warning' | 'error' | 'info';
 }
 
-export default function StatusBadge({ status, children }: StatusBadgeProps) {
-  const statusConfig = {
-    active: { bg: 'bg-success/10', text: 'text-success', label: 'Active' },
-    inactive: { bg: 'bg-text-secondary/10', text: 'text-text-secondary', label: 'Inactive' },
-    pending: { bg: 'bg-warning/10', text: 'text-warning', label: 'Pending' },
-    approved: { bg: 'bg-success/10', text: 'text-success', label: 'Approved' },
-    rejected: { bg: 'bg-error/10', text: 'text-error', label: 'Rejected' },
-    suspended: { bg: 'bg-error/10', text: 'text-error', label: 'Suspended' },
-    completed: { bg: 'bg-success/10', text: 'text-success', label: 'Completed' },
-    cancelled: { bg: 'bg-text-secondary/10', text: 'text-text-secondary', label: 'Cancelled' },
+export default function StatusBadge({ status, variant = 'default' }: StatusBadgeProps) {
+  const getVariantStyles = () => {
+    switch (variant) {
+      case 'success':
+        return 'bg-success-100 text-success-700';
+      case 'warning':
+        return 'bg-warning-100 text-warning-700';
+      case 'error':
+        return 'bg-error-100 text-error-700';
+      case 'info':
+        return 'bg-primary-100 text-primary-700';
+      default:
+        return 'bg-secondary-200 text-text-secondary';
+    }
   };
 
-  const config = statusConfig[status];
+  // Auto-detect variant from status if not provided
+  const autoVariant = variant === 'default' 
+    ? (status.toLowerCase().includes('active') || status.toLowerCase().includes('approved') || status.toLowerCase().includes('confirmed') || status.toLowerCase().includes('completed')
+        ? 'success'
+        : status.toLowerCase().includes('pending') || status.toLowerCase().includes('waiting')
+        ? 'warning'
+        : status.toLowerCase().includes('suspended') || status.toLowerCase().includes('rejected') || status.toLowerCase().includes('cancelled')
+        ? 'error'
+        : 'info')
+    : variant;
+
+  const styles = {
+    success: 'bg-success-100 text-success-700',
+    warning: 'bg-warning-100 text-warning-700',
+    error: 'bg-error-100 text-error-700',
+    info: 'bg-primary-100 text-primary-700',
+  };
 
   return (
-    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${config.bg} ${config.text}`}>
-      {children || config.label}
+    <span className={`px-2 py-1 text-xs font-medium rounded-full ${styles[autoVariant as keyof typeof styles]}`}>
+      {status.charAt(0).toUpperCase() + status.slice(1)}
     </span>
   );
 }

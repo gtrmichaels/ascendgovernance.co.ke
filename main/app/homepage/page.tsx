@@ -61,7 +61,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
             <Link href="/services" className="btn-accent text-lg px-8 py-4 shadow-lg hover:shadow-xl transition-all duration-300">Explore Services</Link>
             <Link href="/contact" className="bg-white/10 backdrop-blur-sm text-white border border-primary-400/50 px-8 py-4 rounded-lg font-medium hover:bg-primary-400/20 hover:border-primary-400 transition-all duration-300">Schedule Consultation</Link>
-            <Link href="/signup" className="bg-white/10 backdrop-blur-sm text-white border border-primary-400/50 px-8 py-4 rounded-lg font-medium hover:bg-primary-400/20 hover:border-primary-400 transition-all duration-300">Register as Consultant</Link>
+            <Link href="/register" className="bg-white/10 backdrop-blur-sm text-white border border-primary-400/50 px-8 py-4 rounded-lg font-medium hover:bg-primary-400/20 hover:border-primary-400 transition-all duration-300">Register</Link>
           </div>
         </div>
       </section>
