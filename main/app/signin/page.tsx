@@ -92,10 +92,6 @@ export default function SignInPage() {
                 const password = formData.get('password') as string;
 
                 try {
-                  // #region agent log
-                  fetch('http://127.0.0.1:7242/ingest/422e6a82-045d-404f-8218-fcee1cf2417e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'signin/page.tsx:73',message:'Login attempt started',data:{email},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-                  // #endregion
-                  
                   const response = await fetch('http://localhost:3001/auth/login', {
                     method: 'POST',
                     headers: {
@@ -107,22 +103,6 @@ export default function SignInPage() {
 
                   const data = await response.json();
 
-                  // #region agent log
-                  // Also fetch API secret for comparison
-                  let apiSecretInfo = null;
-                  try {
-                    const secretResponse = await fetch('http://localhost:3001/auth/debug-secret');
-                    if (secretResponse.ok) {
-                      apiSecretInfo = await secretResponse.json();
-                    }
-                  } catch {}
-                  
-                  // Get middleware secret from window (we'll set it via a script tag)
-                  const middlewareSecret = (window as any).__MIDDLEWARE_SECRET__;
-                  
-                  fetch('http://127.0.0.1:7242/ingest/422e6a82-045d-404f-8218-fcee1cf2417e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'signin/page.tsx:95',message:'Login response received',data:{ok:response.ok,hasToken:!!data.accessToken,tokenLength:data.accessToken?.length,role:data.user?.role,apiSecret:apiSecretInfo,secretsMatch:apiSecretInfo && middlewareSecret ? apiSecretInfo.secretPrefix === middlewareSecret.substring(0,20) : null},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'A'})}).catch(()=>{});
-                  // #endregion
-
                   if (!response.ok) {
                     throw new Error(data.error || 'Login failed');
                   }
@@ -131,18 +111,10 @@ export default function SignInPage() {
                   localStorage.setItem('accessToken', data.accessToken);
                   localStorage.setItem('user', JSON.stringify(data.user));
                   
-                  // #region agent log
-                  fetch('http://127.0.0.1:7242/ingest/422e6a82-045d-404f-8218-fcee1cf2417e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'signin/page.tsx:95',message:'Token stored in localStorage',data:{tokenInStorage:!!localStorage.getItem('accessToken')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'C'})}).catch(()=>{});
-                  // #endregion
-                  
                   // Set cookie for middleware with proper settings
                   // Use max-age for better compatibility
                   const maxAge = 7 * 24 * 60 * 60; // 7 days in seconds
                   document.cookie = `accessToken=${data.accessToken}; path=/; max-age=${maxAge}; SameSite=Lax`;
-
-                  // #region agent log
-                  fetch('http://127.0.0.1:7242/ingest/422e6a82-045d-404f-8218-fcee1cf2417e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'signin/page.tsx:99',message:'Cookie set, checking cookie value',data:{cookieValue:document.cookie.includes('accessToken'),cookieString:document.cookie.substring(0,100)},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'A'})}).catch(()=>{});
-                  // #endregion
 
                   // Redirect based on role using Next.js router for better cookie handling
                   const role = data.user.role;
@@ -154,14 +126,6 @@ export default function SignInPage() {
                   } else if (role === 'USER') {
                     redirectPath = '/user';
                   }
-                  
-                  // #region agent log
-                  fetch('http://127.0.0.1:7242/ingest/422e6a82-045d-404f-8218-fcee1cf2417e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'signin/page.tsx:126',message:'About to redirect',data:{redirectPath,role,cookieExists:document.cookie.includes('accessToken'),cookieValue:document.cookie.split('accessToken=')[1]?.split(';')[0]?.substring(0,20),tokenInStorage:!!localStorage.getItem('accessToken')},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'D'})}).catch(()=>{});
-                  // #endregion
-                  
-                  // #region agent log
-                  fetch('http://127.0.0.1:7242/ingest/422e6a82-045d-404f-8218-fcee1cf2417e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'signin/page.tsx:130',message:'Executing redirect',data:{redirectPath,currentPath:window.location.pathname},timestamp:Date.now(),sessionId:'debug-session',runId:'run2',hypothesisId:'D'})}).catch(()=>{});
-                  // #endregion
                   
                   // Use window.location for full page reload to ensure cookie is available
                   window.location.href = redirectPath;

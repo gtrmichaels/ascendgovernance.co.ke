@@ -4,24 +4,6 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function ConsultantDashboard() {
-  // #region agent log
-  useEffect(() => {
-    fetch('http://127.0.0.1:7242/ingest/422e6a82-045d-404f-8218-fcee1cf2417e',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        location:'consultant/page.tsx:6',
-        message:'ConsultantDashboard rendered',
-        data:{},
-        timestamp:Date.now(),
-        sessionId:'debug-session',
-        runId:'run1',
-        hypothesisId:'G'
-      })
-    }).catch(()=>{});
-  }, []);
-  // #endregion
-
   const [isAvailable, setIsAvailable] = useState(true);
   const [consultantStatus, setConsultantStatus] = useState<'PENDING' | 'APPROVED' | 'REJECTED' | null>(null);
 

@@ -14,22 +14,6 @@ if (!JWT_SECRET) {
   process.exit(1);
 }
 
-// #region agent log
-console.log('[DEBUG] API JWT_SECRET loaded:', JSON.stringify({
-  location: 'api/routes/auth.js:9',
-  message: 'JWT_SECRET loaded in API',
-  data: {
-    hasSecret: !!JWT_SECRET,
-    secretLength: JWT_SECRET?.length,
-    secretPrefix: JWT_SECRET?.substring(0, 20),
-    usingEnv: !!process.env.JWT_SECRET
-  },
-  timestamp: Date.now(),
-  sessionId: 'debug-session',
-  runId: 'run2',
-  hypothesisId: 'A'
-}));
-// #endregion
 const JWT_EXPIRES_IN = '15m';
 const REFRESH_TOKEN_EXPIRES_IN = '7d';
 
@@ -166,34 +150,6 @@ router.post('/login', async (req, res) => {
       { expiresIn: JWT_EXPIRES_IN }
     );
 
-    // #region agent log
-    const tokenLogData = {
-      location: 'api/routes/auth.js:163',
-      message: 'Token generated',
-      data: {
-        hasSecret: !!JWT_SECRET,
-        secretLength: JWT_SECRET?.length,
-        secretPrefix: JWT_SECRET?.substring(0, 20),
-        tokenLength: accessToken.length,
-        tokenPrefix: accessToken.substring(0, 20),
-        userId: user.id,
-        role: user.role
-      },
-      timestamp: Date.now(),
-      sessionId: 'debug-session',
-      runId: 'run2',
-      hypothesisId: 'A'
-    };
-    console.log('[DEBUG] Token generated:', JSON.stringify(tokenLogData));
-    // Also send via HTTP to debug log
-    try {
-      await fetch('http://127.0.0.1:7242/ingest/422e6a82-045d-404f-8218-fcee1cf2417e', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(tokenLogData)
-      }).catch(() => {});
-    } catch {}
-    // #endregion
 
     const refreshToken = jwt.sign(
       { userId: user.id },
@@ -230,17 +186,6 @@ router.post('/logout', (req, res) => {
   res.json({ message: 'Logged out successfully' });
 });
 
-// GET /auth/debug-secret - Debug endpoint to check JWT_SECRET (remove in production)
-router.get('/debug-secret', (req, res) => {
-  res.json({
-    hasSecret: !!JWT_SECRET,
-    secretLength: JWT_SECRET?.length,
-    secretPrefix: JWT_SECRET?.substring(0, 20),
-    secretSuffix: JWT_SECRET?.substring(JWT_SECRET.length - 20),
-    usingEnv: !!process.env.JWT_SECRET,
-    envSecretLength: process.env.JWT_SECRET?.length
-  });
-});
 
 // GET /auth/me
 router.get('/me', async (req, res) => {
