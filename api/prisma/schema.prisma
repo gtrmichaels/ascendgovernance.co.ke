@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -43,7 +43,8 @@ model User {
 
   // Relations
   consultantProfile ConsultantProfile?
-  bookings          Booking[]
+  bookings          Booking[] @relation("UserBookings")
+  consultantBookings Booking[] @relation("ConsultantBookings")
   sentMessages      Message[] @relation("MessageSender")
   receivedMessages  Message[] @relation("MessageReceiver")
 
@@ -56,11 +57,11 @@ model ConsultantProfile {
   linkedinUrl     String?
   bio             String?
   qualifications  String?
-  expertise       String[]         @default([])
+  expertise       String?          // JSON array stored as string
   status          ConsultantStatus @default(PENDING)
   profilePhoto    String?
   cvFile          String?
-  recommendations String[]
+  recommendations String?          // JSON array stored as string
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
 
@@ -83,7 +84,7 @@ model Booking {
   updatedAt     DateTime      @updatedAt
 
   // Relations
-  user          User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User          @relation("UserBookings", fields: [userId], references: [id], onDelete: Cascade)
   consultant    User          @relation("ConsultantBookings", fields: [consultantId], references: [id], onDelete: Cascade)
 
   @@map("bookings")

@@ -90,7 +90,7 @@ npm run dev
 
 ### API (.env)
 ```
-DATABASE_URL="postgresql://user:password@localhost:5432/ascend_governance"
+DATABASE_URL="file:./dev.db"
 JWT_SECRET="your-secret-key"
 JWT_REFRESH_SECRET="your-refresh-secret-key"
 PORT=3001
