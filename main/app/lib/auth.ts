@@ -35,8 +35,12 @@ export function clearAuth(): void {
   if (typeof window === 'undefined') return;
   localStorage.removeItem('accessToken');
   localStorage.removeItem('user');
-  // Clear cookie
-  document.cookie = 'accessToken=; path=/; max-age=0';
+  // Clear all auth-related cookies
+  document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+  document.cookie = 'refreshToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Strict';
+  // Also try to clear with different SameSite values
+  document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+  document.cookie = 'refreshToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
 }
 
 export function isAuthenticated(): boolean {

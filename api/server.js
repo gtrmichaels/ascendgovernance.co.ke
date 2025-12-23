@@ -1,10 +1,12 @@
+// Load environment variables FIRST, before any other imports
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv';
 import authRoutes from './routes/auth.js';
-
-dotenv.config();
+import consultantRoutes from './routes/consultants.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -19,6 +21,7 @@ app.use(cookieParser());
 
 // Routes
 app.use('/auth', authRoutes);
+app.use('/consultants', consultantRoutes);
 
 // Health check
 app.get('/health', (req, res) => {

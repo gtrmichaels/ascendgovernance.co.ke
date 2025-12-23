@@ -6,8 +6,30 @@ import { PrismaClient } from '@prisma/client';
 const router = express.Router();
 const prisma = new PrismaClient();
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'your-refresh-secret-key-change-in-production';
+const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  console.error('ERROR: JWT_SECRET is not set in environment variables');
+  process.exit(1);
+}
+
+// #region agent log
+console.log('[DEBUG] API JWT_SECRET loaded:', JSON.stringify({
+  location: 'api/routes/auth.js:9',
+  message: 'JWT_SECRET loaded in API',
+  data: {
+    hasSecret: !!JWT_SECRET,
+    secretLength: JWT_SECRET?.length,
+    secretPrefix: JWT_SECRET?.substring(0, 20),
+    usingEnv: !!process.env.JWT_SECRET
+  },
+  timestamp: Date.now(),
+  sessionId: 'debug-session',
+  runId: 'run2',
+  hypothesisId: 'A'
+}));
+// #endregion
 const JWT_EXPIRES_IN = '15m';
 const REFRESH_TOKEN_EXPIRES_IN = '7d';
 
@@ -70,7 +92,7 @@ router.post('/register', async (req, res) => {
           linkedinUrl: req.body.linkedinUrl || null,
           bio: req.body.bio || null,
           qualifications: req.body.qualifications || null,
-          expertise: req.body.expertise || [],
+          expertise: req.body.expertise ? JSON.stringify(req.body.expertise) : null,
           status: 'PENDING'
         }
       });
@@ -144,6 +166,35 @@ router.post('/login', async (req, res) => {
       { expiresIn: JWT_EXPIRES_IN }
     );
 
+    // #region agent log
+    const tokenLogData = {
+      location: 'api/routes/auth.js:163',
+      message: 'Token generated',
+      data: {
+        hasSecret: !!JWT_SECRET,
+        secretLength: JWT_SECRET?.length,
+        secretPrefix: JWT_SECRET?.substring(0, 20),
+        tokenLength: accessToken.length,
+        tokenPrefix: accessToken.substring(0, 20),
+        userId: user.id,
+        role: user.role
+      },
+      timestamp: Date.now(),
+      sessionId: 'debug-session',
+      runId: 'run2',
+      hypothesisId: 'A'
+    };
+    console.log('[DEBUG] Token generated:', JSON.stringify(tokenLogData));
+    // Also send via HTTP to debug log
+    try {
+      await fetch('http://127.0.0.1:7242/ingest/422e6a82-045d-404f-8218-fcee1cf2417e', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(tokenLogData)
+      }).catch(() => {});
+    } catch {}
+    // #endregion
+
     const refreshToken = jwt.sign(
       { userId: user.id },
       JWT_REFRESH_SECRET,
@@ -179,6 +230,18 @@ router.post('/logout', (req, res) => {
   res.json({ message: 'Logged out successfully' });
 });
 
+// GET /auth/debug-secret - Debug endpoint to check JWT_SECRET (remove in production)
+router.get('/debug-secret', (req, res) => {
+  res.json({
+    hasSecret: !!JWT_SECRET,
+    secretLength: JWT_SECRET?.length,
+    secretPrefix: JWT_SECRET?.substring(0, 20),
+    secretSuffix: JWT_SECRET?.substring(JWT_SECRET.length - 20),
+    usingEnv: !!process.env.JWT_SECRET,
+    envSecretLength: process.env.JWT_SECRET?.length
+  });
+});
+
 // GET /auth/me
 router.get('/me', async (req, res) => {
   try {
@@ -203,7 +266,16 @@ router.get('/me', async (req, res) => {
           role: true,
           phone: true,
           organization: true,
-          createdAt: true
+          createdAt: true,
+          consultantProfile: {
+            select: {
+              id: true,
+              status: true,
+              bio: true,
+              qualifications: true,
+              expertise: true,
+            }
+          }
         }
       });
 
@@ -211,7 +283,7 @@ router.get('/me', async (req, res) => {
         return res.status(404).json({ error: 'User not found' });
       }
 
-      res.json({
+      const responseData = {
         user: {
           id: user.id,
           name: `${user.firstName} ${user.lastName}`,
@@ -220,7 +292,20 @@ router.get('/me', async (req, res) => {
           phone: user.phone,
           organization: user.organization
         }
-      });
+      };
+
+      // Include consultant profile if exists
+      if (user.consultantProfile) {
+        responseData.consultantProfile = {
+          id: user.consultantProfile.id,
+          status: user.consultantProfile.status,
+          bio: user.consultantProfile.bio,
+          qualifications: user.consultantProfile.qualifications,
+          expertise: user.consultantProfile.expertise ? JSON.parse(user.consultantProfile.expertise) : [],
+        };
+      }
+
+      res.json(responseData);
     } catch (tokenError) {
       return res.status(401).json({ error: 'Invalid or expired token' });
     }

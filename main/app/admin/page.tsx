@@ -1,8 +1,14 @@
 'use client';
 
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 export default function AdminDashboard() {
+  // #region agent log
+  useEffect(() => {
+    fetch('http://127.0.0.1:7242/ingest/422e6a82-045d-404f-8218-fcee1cf2417e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'admin/page.tsx:7',message:'Admin dashboard rendered',data:{hasToken:!!localStorage.getItem('accessToken'),pathname:window.location.pathname},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'G'})}).catch(()=>{});
+  }, []);
+  // #endregion
   // Mock data
   const kpiData = {
     totalUsers: 156,

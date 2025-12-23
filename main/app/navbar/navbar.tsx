@@ -91,7 +91,12 @@ export default function Navbar() {
               <div className="flex items-center space-x-4">
                 <Link 
                   href={getDashboardPath(user.role)} 
-                  className="text-text-primary hover:text-primary transition-colors duration-200"
+                  className="text-text-primary hover:text-primary transition-colors duration-200 cursor-pointer z-10 relative"
+                  onClick={(e) => {
+                    // #region agent log
+                    fetch('http://127.0.0.1:7242/ingest/422e6a82-045d-404f-8218-fcee1cf2417e',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'navbar/navbar.tsx:94',message:'Dashboard link clicked',data:{role:user.role,path:getDashboardPath(user.role),hasToken:!!localStorage.getItem('accessToken')},timestamp:Date.now(),sessionId:'debug-session',runId:'run1',hypothesisId:'F'})}).catch(()=>{});
+                    // #endregion
+                  }}
                 >
                   {user.role === 'ADMIN' && 'Admin Dashboard'}
                   {user.role === 'CONSULTANT' && 'Consultant Dashboard'}
@@ -102,7 +107,8 @@ export default function Navbar() {
                     clearAuth();
                     window.location.href = '/signin';
                   }}
-                  className="btn-secondary text-sm px-4 py-2"
+                  className="bg-[#D4AF37] text-[#213B31] text-sm font-medium px-4 py-2 hover:bg-[#B8962F] transition-colors duration-200 rounded-none"
+                  style={{ borderRadius: 0 }}
                 >
                   Sign Out
                 </button>
@@ -152,7 +158,7 @@ export default function Navbar() {
               <>
                 <Link 
                   href={getDashboardPath(user.role)} 
-                  className="text-text-primary hover:text-primary transition-colors duration-200"
+                  className="text-text-primary hover:text-primary transition-colors duration-200 cursor-pointer z-10 relative"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {user.role === 'ADMIN' && 'Admin Dashboard'}
@@ -164,7 +170,8 @@ export default function Navbar() {
                     clearAuth();
                     window.location.href = '/signin';
                   }}
-                  className="btn-secondary text-sm px-4 py-2"
+                  className="bg-[#D4AF37] text-[#213B31] text-sm font-medium px-4 py-2 hover:bg-[#B8962F] transition-colors duration-200 rounded-none"
+                  style={{ borderRadius: 0 }}
                 >
                   Sign Out
                 </button>

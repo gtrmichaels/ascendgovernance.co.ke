@@ -11,7 +11,7 @@
 
 ### 1. Prisma Schema Update
 **File**: `api/prisma/schema.prisma`
-
+    
 **Changed**:
 ```prisma
 datasource db {
