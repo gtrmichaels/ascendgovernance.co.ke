@@ -232,3 +232,4 @@ Based on your priorities, choose one:
 
 The JWT_SECRET mismatch is a quick fix that will make registration fully functional. Should I implement this fix now?
 
+

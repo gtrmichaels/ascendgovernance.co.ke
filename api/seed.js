@@ -1,21 +1,34 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const prisma = new PrismaClient();
 
 async function main() {
   console.log('🌱 Seeding database...');
 
+  // Get test credentials from environment variables
+  const adminEmail = process.env.TEST_ADMIN_EMAIL || 'admin@test.com';
+  const adminPassword = process.env.TEST_ADMIN_PASSWORD || 'password123';
+  const consultantEmail = process.env.TEST_CONSULTANT_EMAIL || 'consultant@test.com';
+  const consultantPassword = process.env.TEST_CONSULTANT_PASSWORD || 'password123';
+  const userEmail = process.env.TEST_USER_EMAIL || 'user@test.com';
+  const userPassword = process.env.TEST_USER_PASSWORD || 'password123';
+
   // Hash password for all users
-  const hashedPassword = await bcrypt.hash('password123', 10);
+  const adminHashedPassword = await bcrypt.hash(adminPassword, 10);
+  const consultantHashedPassword = await bcrypt.hash(consultantPassword, 10);
+  const userHashedPassword = await bcrypt.hash(userPassword, 10);
 
   // Create ADMIN user
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@test.com' },
+    where: { email: adminEmail },
     update: {},
     create: {
-      email: 'admin@test.com',
-      password: hashedPassword,
+      email: adminEmail,
+      password: adminHashedPassword,
       firstName: 'Admin',
       lastName: 'User',
       role: 'ADMIN',
@@ -25,11 +38,11 @@ async function main() {
 
   // Create CONSULTANT user
   const consultant = await prisma.user.upsert({
-    where: { email: 'consultant@test.com' },
+    where: { email: consultantEmail },
     update: {},
     create: {
-      email: 'consultant@test.com',
-      password: hashedPassword,
+      email: consultantEmail,
+      password: consultantHashedPassword,
       firstName: 'Consultant',
       lastName: 'User',
       role: 'CONSULTANT',
@@ -45,11 +58,11 @@ async function main() {
 
   // Create USER
   const user = await prisma.user.upsert({
-    where: { email: 'user@test.com' },
+    where: { email: userEmail },
     update: {},
     create: {
-      email: 'user@test.com',
-      password: hashedPassword,
+      email: userEmail,
+      password: userHashedPassword,
       firstName: 'Regular',
       lastName: 'User',
       role: 'USER',
@@ -59,9 +72,9 @@ async function main() {
 
   console.log('\n🎉 Seeding completed!');
   console.log('\nTest credentials:');
-  console.log('ADMIN: admin@test.com / password123');
-  console.log('CONSULTANT: consultant@test.com / password123');
-  console.log('USER: user@test.com / password123');
+  console.log(`ADMIN: ${adminEmail} / ${adminPassword}`);
+  console.log(`CONSULTANT: ${consultantEmail} / ${consultantPassword}`);
+  console.log(`USER: ${userEmail} / ${userPassword}`);
 }
 
 main()
@@ -72,4 +85,5 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
 

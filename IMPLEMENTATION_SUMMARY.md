@@ -48,9 +48,9 @@ Since `.env` files are protected, you need to create them manually:
 # Database
 DATABASE_URL="file:./prisma/dev.db"
 
-# JWT Secrets
-JWT_SECRET="ec8dad4e07a20aa507cb9c6b3f71b64498c5e5692ae548c1670ccea1a74afe59000d3043ef571bcdce940e9eec158d44626a9c698aa13bbdb33d819d53c66ea2"
-JWT_REFRESH_SECRET="ec8dad4e07a20aa507cb9c6b3f71b64498c5e5692ae548c1670ccea1a74afe59000d3043ef571bcdce940e9eec158d44626a9c698aa13bbdb33d819d53c66ea2"
+# JWT Secrets (change these in production!)
+JWT_SECRET="your-strong-secret-here-change-in-production"
+JWT_REFRESH_SECRET="your-strong-refresh-secret-here-change-in-production"
 
 # Server
 PORT=3001
@@ -60,7 +60,7 @@ NODE_ENV=development
 ### 2. Create `main/.env.local`:
 ```env
 # JWT Secret (must match API server)
-JWT_SECRET="ec8dad4e07a20aa507cb9c6b3f71b64498c5e5692ae548c1670ccea1a74afe59000d3043ef571bcdce940e9eec158d44626a9c698aa13bbdb33d819d53c66ea2"
+JWT_SECRET="your-strong-secret-here-change-in-production"
 
 # API Server URL
 NEXT_PUBLIC_API_URL="http://localhost:3001"
@@ -158,4 +158,5 @@ Once you've created the `.env` files and restarted the servers, you can:
 5. Log in as the consultant to see the status change
 
 All the core functionality is now in place!
+
 
