@@ -1,12 +1,18 @@
 {
-  "buildCommand": "npm install",
+  "buildCommand": "npm run build",
   "installCommand": "npm install",
   "env": {
     "NODE_ENV": "production"
   },
   "functions": {
-    "server.js": {
+    "vercel_api/index.js": {
       "runtime": "nodejs20.x"
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/vercel_api/index.js"
+    }
+  ]
 }
