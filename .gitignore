@@ -1,7 +1,14 @@
-node_modules/
-.env
-.env.local
-.env*.local
-
-# Cursor debug logs (contains sensitive information)
-.cursor/
+{
+  "builds": [
+    {
+      "src": "main/package.json",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "main/$1"
+    }
+  ]
+}
