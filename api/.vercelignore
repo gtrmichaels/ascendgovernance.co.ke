@@ -3,4 +3,14 @@ node_modules/
 .next/
 .env
 .env.local
+.env.*.local
 *.md
+.gitignore
+.DS_Store
+Thumbs.db
+prisma/dev.db
+seed.js
+server.js
+routes/
+middleware.ts
+
