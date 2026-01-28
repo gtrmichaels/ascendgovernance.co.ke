@@ -5,14 +5,8 @@
     "NODE_ENV": "production"
   },
   "functions": {
-    "vercel_api/index.js": {
+    "api/index.js": {
       "runtime": "nodejs20.x"
     }
-  },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/vercel_api/index.js"
-    }
-  ]
+  }
 }
