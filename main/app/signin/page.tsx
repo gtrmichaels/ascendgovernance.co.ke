@@ -3,11 +3,11 @@
 export const dynamic = 'force-dynamic';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { clearAuth } from '../lib/auth';
 
-export default function SignInPage() {
+function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -297,6 +297,14 @@ export default function SignInPage() {
         </div>
       </section>
     </>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignInForm />
+    </Suspense>
   );
 }
 
