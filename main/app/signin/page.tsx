@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { clearAuth } from '../lib/auth';
+import { apiClient } from '../lib/api';
 
 function SignInForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -94,20 +95,7 @@ function SignInForm() {
                 const password = formData.get('password') as string;
 
                 try {
-                  const response = await fetch('http://localhost:3001/auth/login', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    credentials: 'include',
-                    body: JSON.stringify({ email, password }),
-                  });
-
-                  const data = await response.json();
-
-                  if (!response.ok) {
-                    throw new Error(data.error || 'Login failed');
-                  }
+                  const data = await apiClient.post('/auth/login', { email, password });
 
                   // Store access token in localStorage and cookie
                   localStorage.setItem('accessToken', data.accessToken);
