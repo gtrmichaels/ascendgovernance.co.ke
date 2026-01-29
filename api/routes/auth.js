@@ -6,12 +6,11 @@ import { PrismaClient } from '@prisma/client';
 const router = express.Router();
 const prisma = new PrismaClient();
 
-const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-change-in-production';
+const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || process.env.JWT_SECRET || 'fallback-refresh-secret-change-in-production';
 
-if (!JWT_SECRET) {
-  console.error('ERROR: JWT_SECRET is not set in environment variables');
-  process.exit(1);
+if (!process.env.JWT_SECRET) {
+  console.warn('WARNING: JWT_SECRET is not set in environment variables. Using fallback (development only).');
 }
 
 const JWT_EXPIRES_IN = '15m';
