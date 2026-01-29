@@ -11,6 +11,5 @@ Thumbs.db
 prisma/dev.db
 seed.js
 server.js
-routes/
 middleware.ts
 
