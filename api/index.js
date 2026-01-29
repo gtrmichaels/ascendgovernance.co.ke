@@ -5,8 +5,8 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
-import authRoutes from '../routes/auth.js';
-import consultantRoutes from '../routes/consultants.js';
+import authRoutes from './routes/auth.js';
+import consultantRoutes from './routes/consultants.js';
 
 const app = express();
 
@@ -27,5 +27,4 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// Export as serverless function
 export default serverless(app);
