@@ -1,5 +1,6 @@
 import serverless from 'serverless-http';
 import dotenv from 'dotenv';
+console.time('[api] module import');
 dotenv.config();
 
 import express from 'express';
@@ -8,7 +9,9 @@ import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.js';
 import consultantRoutes from './routes/consultants.js';
 
+console.time('[api] express init');
 const app = express();
+console.timeEnd('[api] express init');
 
 // Middleware
 app.use(cors({
@@ -26,5 +29,15 @@ app.use('/consultants', consultantRoutes);
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
+console.timeEnd('[api] module import');
 
-export default serverless(app);
+// Wrap handler to log per-invocation timings
+const handler = serverless(app);
+export default async function (req, res) {
+  console.time('[api] invocation');
+  try {
+    await handler(req, res);
+  } finally {
+    console.timeEnd('[api] invocation');
+  }
+}
