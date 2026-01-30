@@ -94,11 +94,11 @@ router.post('/register', async (req, res) => {
       { expiresIn: REFRESH_TOKEN_EXPIRES_IN }
     );
 
-    // Set refresh token as httpOnly cookie
+    // Set refresh token as httpOnly cookie (cross-site compatible)
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: true,
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
 
@@ -157,11 +157,11 @@ router.post('/login', async (req, res) => {
       { expiresIn: REFRESH_TOKEN_EXPIRES_IN }
     );
 
-    // Set refresh token as httpOnly cookie
+    // Set refresh token as httpOnly cookie (cross-site compatible)
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'strict',
+      secure: true,
+      sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
     });
 

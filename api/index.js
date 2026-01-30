@@ -15,7 +15,10 @@ console.timeEnd('[api] express init');
 
 // Middleware
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: [
+    process.env.FRONTEND_URL || 'https://ascendgovernance.co.ke',
+    'https://ascendgovernance.vercel.app'
+  ],
   credentials: true
 }));
 app.use(express.json());
