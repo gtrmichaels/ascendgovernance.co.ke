@@ -1,15 +1,21 @@
 import { PrismaClient } from '@prisma/client';
 
-console.time('[prisma] module import');
-// Use a global variable so that the PrismaClient is reused across
-// lambda invocations in development and serverless environments.
+// Lazy-initialize Prisma client to avoid heavy work during module import
+let prisma = null;
 const globalForPrisma = globalThis;
 
-console.time('[prisma] client init start');
-const prisma = globalForPrisma.__prismaClient ?? new PrismaClient();
-console.timeEnd('[prisma] client init start');
-if (!globalForPrisma.__prismaClient) globalForPrisma.__prismaClient = prisma;
+export async function getPrisma() {
+	if (globalForPrisma.__prismaClient) return globalForPrisma.__prismaClient;
 
-console.timeEnd('[prisma] module import');
+	console.time('[prisma] create client');
+	prisma = new PrismaClient();
+	globalForPrisma.__prismaClient = prisma;
+	console.timeEnd('[prisma] create client');
 
-export default prisma;
+	return prisma;
+}
+
+// For backwards-compatibility (synchronous import), export a default getter
+export default {
+	get: () => getPrisma()
+};

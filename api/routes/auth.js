@@ -1,7 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import prisma from '../lib/prisma.js';
+import prismaLib from '../lib/prisma.js';
 
 const router = express.Router();
 
@@ -26,6 +26,7 @@ router.post('/register', async (req, res) => {
     }
 
     // Check if user already exists
+    const prisma = await prismaLib.getPrisma();
     const existingUser = await prisma.user.findUnique({
       where: { email }
     });
@@ -126,6 +127,7 @@ router.post('/login', async (req, res) => {
     }
 
     // Find user
+    const prisma = await prismaLib.getPrisma();
     const user = await prisma.user.findUnique({
       where: { email }
     });
@@ -199,8 +201,8 @@ router.get('/me', async (req, res) => {
     try {
       const decoded = jwt.verify(token, JWT_SECRET);
       
+      const prisma = await prismaLib.getPrisma();
       const user = await prisma.user.findUnique({
-        where: { id: decoded.userId },
         select: {
           id: true,
           email: true,
