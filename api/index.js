@@ -14,11 +14,27 @@ const app = express();
 console.timeEnd('[api] express init');
 
 // Middleware
+const allowedOrigins = [
+  process.env.FRONTEND_URL || 'https://ascendgovernance.co.ke',
+  'https://ascendgovernance.vercel.app'
+];
+
 app.use(cors({
-  origin: [
-    process.env.FRONTEND_URL || 'https://ascendgovernance.co.ke',
-    'https://ascendgovernance.vercel.app'
-  ],
+  origin: function(origin, callback) {
+    console.log('[CORS] incoming request origin:', origin);
+    // Allow requests with no origin (e.g., curl, mobile apps)
+    if (!origin) {
+      console.log('[CORS] no origin header — allowing');
+      return callback(null, true);
+    }
+    if (allowedOrigins.includes(origin)) {
+      console.log('[CORS] origin allowed:', origin);
+      return callback(null, true);
+    }
+    // Not in allowlist — reject but log for debugging
+    console.warn('[CORS] origin blocked:', origin, 'allowed:', allowedOrigins);
+    return callback(null, false);
+  },
   credentials: true
 }));
 app.use(express.json());
