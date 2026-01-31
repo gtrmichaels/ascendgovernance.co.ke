@@ -19,6 +19,25 @@ const allowedOrigins = [
   'https://ascendgovernance.vercel.app'
 ];
 
+// QUICK DEBUG MIDDLEWARE: Echo origin and handle OPTIONS preflight explicitly.
+// This is temporary — remove once CORS is confirmed working in production.
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  console.log('[CORS-DEBUG] origin header:', origin, 'FRONTEND_URL=', process.env.FRONTEND_URL);
+  if (origin) {
+    // Always echo the incoming origin for testing purposes
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+  }
+  // Handle preflight quickly
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+  next();
+});
+
 app.use(cors({
   origin: function(origin, callback) {
     console.log('[CORS] incoming request origin:', origin);
@@ -37,6 +56,7 @@ app.use(cors({
   },
   credentials: true
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 
