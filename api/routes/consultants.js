@@ -1,6 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import prismaLib from '../lib/prisma.js';
+import { getPrisma } from '../lib/prisma.js';
 
 const router = express.Router();
 
@@ -16,7 +16,7 @@ const verifyAdmin = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, JWT_SECRET);
-    const prisma = await prismaLib.getPrisma();
+    const prisma = await getPrisma();
     const user = await prisma.user.findUnique({
       where: { id: decoded.userId },
       select: { role: true }
@@ -36,7 +36,7 @@ const verifyAdmin = async (req, res, next) => {
 // GET /consultants - Get all consultants (admin only)
 router.get('/', verifyAdmin, async (req, res) => {
   try {
-    const prisma = await prismaLib.getPrisma();
+    const prisma = await getPrisma();
     const consultants = await prisma.consultantProfile.findMany({
       include: {
         user: {
