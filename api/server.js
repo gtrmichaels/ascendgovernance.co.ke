@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
-import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.js';
 import consultantRoutes from './routes/consultants.js';
@@ -11,11 +10,38 @@ import consultantRoutes from './routes/consultants.js';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
-  credentials: true
-}));
+// Middleware: Custom CORS (echo incoming origin to avoid localhost fallback)
+const allowedOrigins = [
+  process.env.FRONTEND_URL || 'https://ascendgovernance.co.ke',
+  'https://ascendgovernance.vercel.app'
+];
+
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  console.log('[CORS] incoming origin:', origin, 'FRONTEND_URL env:', process.env.FRONTEND_URL);
+  
+  if (origin) {
+    // Check if origin is allowed
+    if (allowedOrigins.includes(origin) || 
+        origin === 'https://ascendgovernance.vercel.app' || 
+        origin === 'https://ascendgovernance.co.ke') {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+      res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE,OPTIONS');
+      console.log('[CORS] origin ALLOWED:', origin);
+    } else {
+      console.warn('[CORS] origin BLOCKED:', origin);
+    }
+  }
+  
+  // Handle OPTIONS preflight
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+  next();
+});
+
 app.use(express.json());
 app.use(cookieParser());
 
