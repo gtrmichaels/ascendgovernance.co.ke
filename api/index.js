@@ -4,7 +4,6 @@ console.time('[api] module import');
 dotenv.config();
 
 import express from 'express';
-import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.js';
 import consultantRoutes from './routes/consultants.js';
